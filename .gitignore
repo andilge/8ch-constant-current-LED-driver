@@ -22,6 +22,7 @@
 CC dimmer low voltage-rescue.lib
 CC dimmer low voltage.csv
 CC dimmer low voltage.xml
+*.xlsx 
 *.odt
 fp-info-cache
 fp-lib-table
