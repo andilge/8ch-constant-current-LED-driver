@@ -1,19 +1,18 @@
 /.git
 /gerber + drill/imgs
-CC dimmer low voltage-cache.lib
-CC dimmer low voltage-rescue.bck
-CC dimmer low voltage-rescue.dcm
+*.lib
+*.bck
+*.dcm
+*.kicad_pcb
+*.kicad_pcb-bak
+*.net
+*.pro
+*.sch
+*.sch-bak
 CC dimmer low voltage-rescue.lib
 CC dimmer low voltage.csv
-CC dimmer low voltage.kicad_pcb
-CC dimmer low voltage.kicad_pcb-bak
-CC dimmer low voltage.net
-CC dimmer low voltage.pro
-CC dimmer low voltage.sch
-CC dimmer low voltage.sch-bak
 CC dimmer low voltage.xml
-Driver_LED.dcm
-enclosure labels.odt
+*.odt
 fp-info.cache
 fp-lib-table
 sym-lib-table
