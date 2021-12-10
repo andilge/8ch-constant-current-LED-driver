@@ -1,5 +1,4 @@
 /.git
-/gerber + drill/imgs
 *.lib
 *.bck
 *.dcm
@@ -13,8 +12,9 @@ CC dimmer low voltage-rescue.lib
 CC dimmer low voltage.csv
 CC dimmer low voltage.xml
 *.odt
-fp-info.cache
+fp-info-cache
 fp-lib-table
 sym-lib-table
 jlcpcb + kicad 5, how to genereate gerber + drill files.pdf
 pcbway + kicad 5, how to genereate gerber + drill files.pdf
+
