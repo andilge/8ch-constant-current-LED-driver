@@ -3,7 +3,6 @@ trying to scope on pre building the board
 excluded (not available, too expensive or better arrange locally)
 - espP32 mini
 - step down converter module 5V 1A
-- 5A fast blowing glass fuse 5x20mm
 
 Joined the free to use GPIOs, 5 Volt fused and ground header pins in one horizontal connector
 
