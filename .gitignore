@@ -1,4 +1,5 @@
 /.git
+/gerber + drill/imgs
 CC dimmer low voltage-cache.lib
 CC dimmer low voltage-rescue.bck
 CC dimmer low voltage-rescue.dcm
