@@ -1,3 +1,4 @@
+# ignoring folders
 /.git
 /gerber + drill/2021-10-29
 /gerber + drill/2021-10-30
@@ -10,6 +11,8 @@
 /gerber + drill/2021-11-08
 /gerber + drill/2021-11-09
 /gerber + drill/2021-11-10
+
+# ignoring KiCAD files
 *.lib
 *.bck
 *.dcm
@@ -22,11 +25,15 @@
 CC dimmer low voltage-rescue.lib
 CC dimmer low voltage.csv
 CC dimmer low voltage.xml
-*.xlsx 
-*.odt
 fp-info-cache
 fp-lib-table
 sym-lib-table
+
+# ignoring all files with specific file type
+*.xlsx 
+*.odt
+
+# ignoring specific files
 jlcpcb + kicad 5, how to genereate gerber + drill files.pdf
 pcbway + kicad 5, how to genereate gerber + drill files.pdf
 
