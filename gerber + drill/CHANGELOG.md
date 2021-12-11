@@ -104,7 +104,7 @@
 
 ## [earlier revisions]
 - basically doing some fundamental testing/measuring, choosing the matching components, shrinking the board to a compact size while improving it's power throughput
-- achieve the official permission to use the "made for ESPHome"-Logo
+- achieving the official permission to use the "made for ESPHome"-Logo
 - showing the project to specialists, getting their opinion and answering some questions
 - measuring, burning parts, rebuilding, ordering prototype boards, soldering components, collecting information and throw the earlier prototype boards to trash moving on to the next prototype revision ... ~ 25 or more iterations like this
 - this stage is not published in the changelog as it is a creative and chaotic process.
