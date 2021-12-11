@@ -15,5 +15,7 @@ Sweet, I can do nice pwm easily with an ESP32, the first prototype board was soo
 
 The board revisions are accessible in the  "gerber + drills" folder. Check CHANGELOG.md for detailed revision history.
 
+An example esphome yaml file is located in the "esphome" folder.
+
 ## Where to go
 I know some additional information is needed to get going. I'm planning to build up a wiki here with a step by step procedure, but I got no time to roll this off swiftly :-(
