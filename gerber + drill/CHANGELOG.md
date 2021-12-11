@@ -38,7 +38,7 @@
 ## [0.95] - 2021-12-04
 ### Added
 - lcsc.com part number where possible trying to scope on pre building the board. Not including (not available, too expensive or better arrange locally)
-> *espP32 mini* and *step down converter module 5V 1A*
+> better get *espP32 mini* and *step down converter module 5V 1A* from [aliexpress]()https://aliexpress.com)
 - Usage of teardrops on round tht pads and smaller tracks for low power connections
 - interactive bom (ibom.html) as help for component placement reference on board 
 ### Changed
