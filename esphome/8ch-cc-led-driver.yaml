@@ -325,7 +325,7 @@ light:
 switch:
   # - !include common/switches/restart.yaml
   - platform: restart
-    name: '${my_name} Neustart'
+    name: '${my_name} reboot'
     id: reboot
     icon: mdi:restart
 
@@ -448,7 +448,7 @@ sensor:
           condition:
             # remote values instantly reflects the new brightness, whereas current_values is the transitioning value
             # bigger or equal to min brightness + 0.01 to avoid floating point issue
-            lambda: 'return id(downlight_01).remote_values.get_brightness() >= 0.09;'
+            lambda: 'return id(downlight_01).remote_values.get_brightness() >= 0.11;'
           then:
             - light.dim_relative:
                 id: downlight_01
@@ -459,7 +459,7 @@ sensor:
           condition:
             # remote values instantly reflects the new brightness, whereas current_values is the transitioning value
             # bigger or equal to min brightness + 0.01 to avoid floating point issue
-            lambda: 'return id(downlight_02).remote_values.get_brightness() >= 0.09;'
+            lambda: 'return id(downlight_02).remote_values.get_brightness() >= 0.11;'
           then:
             - light.dim_relative:
                 id: downlight_02
@@ -470,7 +470,7 @@ sensor:
           condition:
             # remote values instantly reflects the new brightness, whereas current_values is the transitioning value
             # bigger or equal to min brightness + 0.01 to avoid floating point issue
-            lambda: 'return id(downlight_03).remote_values.get_brightness() >= 0.09;'
+            lambda: 'return id(downlight_03).remote_values.get_brightness() >= 0.11;'
           then:
             - light.dim_relative:
                 id: downlight_03
@@ -481,7 +481,7 @@ sensor:
           condition:
             # remote values instantly reflects the new brightness, whereas current_values is the transitioning value
             # bigger or equal to min brightness + 0.01 to avoid floating point issue
-            lambda: 'return id(downlight_04).remote_values.get_brightness() >= 0.09;'
+            lambda: 'return id(downlight_04).remote_values.get_brightness() >= 0.11;'
           then:
             - light.dim_relative:
                 id: downlight_04
@@ -492,7 +492,7 @@ sensor:
           condition:
             # remote values instantly reflects the new brightness, whereas current_values is the transitioning value
             # bigger or equal to min brightness + 0.01 to avoid floating point issue
-            lambda: 'return id(downlight_05).remote_values.get_brightness() >= 0.09;'
+            lambda: 'return id(downlight_05).remote_values.get_brightness() >= 0.11;'
           then:
             - light.dim_relative:
                 id: downlight_05
@@ -503,7 +503,7 @@ sensor:
           condition:
             # remote values instantly reflects the new brightness, whereas current_values is the transitioning value
             # bigger or equal to min brightness + 0.01 to avoid floating point issue
-            lambda: 'return id(downlight_06).remote_values.get_brightness() >= 0.09;'
+            lambda: 'return id(downlight_06).remote_values.get_brightness() >= 0.11;'
           then:
             - light.dim_relative:
                 id: downlight_06
@@ -514,7 +514,7 @@ sensor:
           condition:
             # remote values instantly reflects the new brightness, whereas current_values is the transitioning value
             # bigger or equal to min brightness + 0.01 to avoid floating point issue
-            lambda: 'return id(downlight_07).remote_values.get_brightness() >= 0.09;'
+            lambda: 'return id(downlight_07).remote_values.get_brightness() >= 0.11;'
           then:
             - light.dim_relative:
                 id: downlight_07
@@ -525,7 +525,7 @@ sensor:
           condition:
             # remote values instantly reflects the new brightness, whereas current_values is the transitioning value
             # bigger or equal to min brightness + 0.01 to avoid floating point issue
-            lambda: 'return id(downlight_08).remote_values.get_brightness() >= 0.09;'
+            lambda: 'return id(downlight_08).remote_values.get_brightness() >= 0.11;'
           then:
             - light.dim_relative:
                 id: downlight_08
