@@ -42,14 +42,15 @@
   - *espP32 mini* 
   - *step down converter module 5V 1A*
 - usage of teardrops on round tht pads
-- smaller tracks for low power connections
 - interactive bom (ibom.html) as help for component placement reference on board 
 ### Changed
 - joined the free to use GPIOs, 5 Volt fused and ground header pins in one horizontal connector 
 - using electrolyte capacitors with tht layout (formally smd) for better availability/prices and easier handling 
 - new smd power inductors for better availability/prices and a bit more space on the board 
-- new smd schotty power diodes for better availability/prices and easier handling and a bit more space on the board 
-- Improved placement for led power components and optimized led power track routing
+- new smd schotty power diodes for better availability/prices and easier handling and a bit more space on the board
+- smaller tracks for low power connections 
+- improved placement for led power components
+- optimized led power track routing
 ### Deprecated
 ### Removed
 - after some discussions with others about the external 5Volt in function and considering my personal usage case, the decision was taken to remove this functionality. The benefit is arguable and very low, the complexity rises, better keep it simple.
