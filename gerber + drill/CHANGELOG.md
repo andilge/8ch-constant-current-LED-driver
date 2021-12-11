@@ -1,8 +1,4 @@
 # Changelog
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 - WIP: connector panel board for easier mounting on enclosure
@@ -42,9 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.95] - 2021-12-04
 ### Added
 -lcsc.com part number where possible trying to scope on pre building the board. Not including (not available, too expensive or better arrange locally)
-> espP32 mini
-> step down converter module 5V 1A
-- Usage of teardrops on round thts and smaller tracks for low power connections
+-- espP32 mini
+-- step down converter module 5V 1A
+- Usage of teardrops on round tht pads and smaller tracks for low power connections
 - interactive bom (ibom.html) as help for component placement reference on board 
 ### Changed
 - joined the free to use GPIOs, 5 Volt fused and ground header pins in one horizontal connector
@@ -93,11 +89,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 ### Changed
 - focus on installing the board in a pre made enclosure with mounting hole distances 105mm/55mm
-> shrinking the board size
-> setting up a 4th mounting hole on the board and placing all of them at the correct place
-> adapting etch cuts with rounded corners to the matching size
-> redoing **all component placement, all track routing and all silkscreens**, from zero
-> testing, measureing, checking heat disspipation with ir cam, rechecking power handling and long term test once again
+- shrinking the board size
+- setting up a 4th mounting hole on the board and placing all of them at the correct place
+- adapting etch cuts with rounded corners to the matching size
+- redoing **all component placement, all track routing and all silkscreens**, from zero
+- testing, measureing, checking heat disspipation with ir cam, rechecking power handling and long term test once again
 ### Deprecated
 ### Removed
 ### Fixed
