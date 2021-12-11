@@ -38,8 +38,10 @@
 
 ## [0.95] - 2021-12-04
 ### Added
-- [lcsc](https://lcsc.com/) part number in bom.xlsx where possible trying to scope on pre building the board. Not including (not available, too expensive or better arrange locally) 
-  - *espP32 mini* and *step down converter module 5V 1A* (better get them from [aliexpress](https://aliexpress.com))
+- [lcsc](https://lcsc.com/) part number in bom.pdf where possible trying to scope on pre building the board. Not including (not available, too expensive or better arrange locally) 
+  - *espP32 mini* 
+  - *step down converter module 5V 1A*
+  better get them from [aliexpress](https://aliexpress.com))
 - Usage of teardrops on round tht pads and smaller tracks for low power connections
 - interactive bom (ibom.html) as help for component placement reference on board 
 ### Changed
