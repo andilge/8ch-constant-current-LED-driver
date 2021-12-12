@@ -3,6 +3,17 @@
 ## [Unreleased]
 - WIP: connector panel board for easier mounting on enclosure
 
+## [0.98] - 2021-12-12
+### Added
+### Changed
+- new power inductor Bourns SRN6045 for better availabilty (widley spread in different stocks)
+- silkscreen at LED1 - LED 4 rotated for better readability
+- new graphics for board dimensions and mounting hole distances
+### Deprecated
+### Removed
+### Fixed
+### Security
+
 ## [0.97] - 2021-12-10
 ### Added
 - CHANGELOG.md format based on [Keep a Changelog](https://keepachangelog.com)
@@ -10,7 +21,6 @@
 - optimizing vias
 - small improvement on vcc tracks to led driver ic
 - other minor enhancements and improvements
-
 ### Deprecated
 ### Removed
 ### Fixed
