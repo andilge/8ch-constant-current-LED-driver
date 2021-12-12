@@ -7,6 +7,7 @@
 ### Added
 ### Changed
 - new power inductor Bourns SRN6045 for better availabilty (widley spread in different stocks)
+- spreading out ground area on front and back layer
 - silkscreen at LED1 - LED 4 rotated for better readability
 - new graphics for board dimensions and mounting hole distances
 ### Deprecated
