@@ -12,35 +12,35 @@
 # ---------------------------------------
 # | GPIO | Board | Usage                |
 # |------|-------|----------------------|
-# |  04  | U20   | dallas temp. sensor  |
+# | 04   | U20   | dallas temp. sensor  |
 # |------|-------|----------------------|
-# |  05  | J130  | momentary switch     |
+# | 05   | J130  | momentary switch     |
 # |------|-------|----------------------|
-# |  13  | J110	 | free to use GPIO     |
+# | 13   | J110	 | free to use GPIO     |
 # |------|-------|----------------------|
-# |  16  | LED1	 | LED1 dimming (pwm)   |
+# | 16   | LED1	 | LED1 dimming (pwm)   |
 # |------|-------|----------------------|
-# |  17  | LED2	 | LED2 dimming (pwm)   |
+# | 17   | LED2	 | LED2 dimming (pwm)   |
 # |------|-------|----------------------|
-# |  18  | LED3	 | LED3 dimming (pwm)   |
+# | 18   | LED3	 | LED3 dimming (pwm)   |
 # |------|-------|----------------------|
-# |  19  | LED4	 | LED4 dimming (pwm)   |
+# | 19   | LED4	 | LED4 dimming (pwm)   |
 # |------|-------|----------------------|
-# |  21  | LED5  | LED5 dimming (pwm)   |
+# | 21   | LED5  | LED5 dimming (pwm)   |
 # |------|-------|----------------------|
-# |  22  | LED6	 | LED6 dimming (pwm)   |
+# | 22   | LED6	 | LED6 dimming (pwm)   |
 # |------|-------|----------------------|
-# |  23  | LED7  | LED7 dimming (pwm)   |
+# | 23   | LED7  | LED7 dimming (pwm)   |
 # |------|-------|----------------------|
-# |  25  | LED8  | LED8 dimming (pwm)   |
+# | 25   | LED8  | LED8 dimming (pwm)   |
 # |------|-------|----------------------|
-# |  26  | J130  | rotary encoder pin A |
+# | 26   | J130  | rotary encoder pin A |
 # |------|-------|----------------------|
-# |  27  | J130  | rotary encoder pin B |
+# | 27   | J130  | rotary encoder pin B |
 # |------|-------|----------------------|
-# |  32  | J120  | motion sensor (pir)  |
+# | 32   | J120  | motion sensor (pir)  |
 # |------|-------|----------------------|
-# |  33  | J110  | free to use GPIO     |
+# | 33   | J110  | free to use GPIO     |
 # ---------------------------------------
 
 ##### basic configs #####
@@ -650,3 +650,4 @@ status_led:
   pin:
     number: GPIO2
     inverted: false
+
