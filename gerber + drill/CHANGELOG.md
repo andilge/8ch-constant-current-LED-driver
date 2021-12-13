@@ -3,6 +3,18 @@
 ## [Unreleased]
 - WIP: connector panel board for easier mounting on enclosure
 
+## [0.99] - 2021-12-13
+### Added
+### Changed
+- using horizontal JST connectors near the board edge to enable connecting the pir sensor and rotary encoder easily thru the encloser
+- new placement for the esp32 giving space for the jst connectors near the board edge
+- rerouting all tracks around the jst connector and esp32
+- minor improvments in the 5 Volt line, better placement and routing of components
+### Deprecated
+### Removed
+### Fixed
+### Security
+
 ## [0.98] - 2021-12-12
 ### Added
 ### Changed
