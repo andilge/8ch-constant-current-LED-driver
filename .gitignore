@@ -30,7 +30,8 @@ fp-lib-table
 sym-lib-table
 
 # ignoring all files with specific file type
-*.xlsx 
+*.xlsx
+*.xlsx#
 *.odt
 
 # ignoring specific files
