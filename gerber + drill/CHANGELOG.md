@@ -1,7 +1,6 @@
 # Changelog
 
 ## [Unreleased]
-- WIP: connector panel board for easier mounting on enclosure
 
 ## [0.99] - 2021-12-13
 ### Added
