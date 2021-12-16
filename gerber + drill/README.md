@@ -12,8 +12,8 @@ This is the interactive bill of materials which will help you placing the compon
 Here some [usage hints](https://github.com/openscopeproject/InteractiveHtmlBom/wiki/Usage#bom-page-mouse-actions).
 
 ### jlcpcb-bom.csv and jlcpcb-top-pos.csv
-These 2 files can be used if you want jlcpcb.com to partially build the board. Please upload bom.csv as BOM, top-pos.csv as CPL
-**ATTENTION**: the ESP32 (U10), 5V voltage converter (U200) and horizontal JST and Dupont board connectors (J110, J120, J130) are NOT included (I recommend buying from aliexpress.com and complete by soldering these through hole components yourself)!
+These 2 files can be used if you want jlcpcb.com to solder all SMD components on the board. Please upload bom.csv as BOM, top-pos.csv as CPL.
+**ATTENTION**: All through hole components are *NOT* included in this process. Please arrange them nonetheless and complete the board by manualy soldering them!
 
 ### gerber
 This can be used to order the board at jlcpcb.com or pcbway.com. All my tests where based on standard 1oz cupper thickness and showed positive results.

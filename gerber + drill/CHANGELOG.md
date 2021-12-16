@@ -4,8 +4,8 @@
 
 ## [0.99r2] - 2021-12-16
 ### Added
-- introducing jlcpcb-bom.csv BOM and jlcpcb-top-pos.csv CPL for the assembly of the board by jlcpcb. 
-  **ATTENTION**: the ESP32 (U10), 5V voltage converter (U200) and horizontal JST and Dupont board connectors (J110, J120, J130) are *NOT* included in this BOM!
+- introducing jlcpcb-bom.csv BOM and jlcpcb-top-pos.csv CPL for the SMD assembly of the board by jlcpcb. 
+  **ATTENTION**: All through hole components are *NOT* included in this BOM and the assembly. Please complete by manualy soldering them !
 ### Changed
 ### Deprecated
 ### Removed
