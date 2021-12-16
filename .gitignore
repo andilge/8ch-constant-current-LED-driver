@@ -37,5 +37,6 @@ sym-lib-table
 # ignoring specific files
 jlcpcb + kicad 5, how to genereate gerber + drill files.pdf
 pcbway + kicad 5, how to genereate gerber + drill files.pdf
+jlcpcb-How to generate the BOM and Centroid file from KiCAD.pdf
 schematic-8ch-constant-current-LED-driver.pdf
 
