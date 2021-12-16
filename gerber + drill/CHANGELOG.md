@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## [0.99r2] - 2021-12-16
+### Added
+- introducing jlcpcb-bom.csv BOM and jlcpcb-top-pos.csv CPL for the assembly of the board by jlcpcb. **ATTENTION**: the ESP32 and voltage converter are *not* included in this BOM! 
+### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
 ## [0.99] - 2021-12-13
 ### Added
 ### Changed
