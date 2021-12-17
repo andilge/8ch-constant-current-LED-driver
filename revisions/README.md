@@ -4,7 +4,7 @@
 ### gerber, drill and map files
 The zip file contains it all. No need to unpack, it can be uploaded to the board manufacturer as it is. All tests with the board passed QC with 1oz copper layers.
 
-### bom.csv and top-pos.csv
+### smd-bom.csv and top-pos.csv
 These 2 files can be used if you want jlcpcb.com to solder all SMD components on the board. Please upload bom.csv as BOM, top-pos.csv as CPL.
 **ATTENTION**: All through hole components are *NOT* included in this BOM and the pre-assembly process. Please complete the board by manualy soldering them!
 
