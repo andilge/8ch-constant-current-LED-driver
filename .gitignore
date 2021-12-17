@@ -1,16 +1,16 @@
 # ignoring folders
 /.git
-/gerber + drill/2021-10-29
-/gerber + drill/2021-10-30
-/gerber + drill/2021-11-02
-/gerber + drill/2021-11-03
-/gerber + drill/2021-11-04
-/gerber + drill/2021-11-05
-/gerber + drill/2021-11-06
-/gerber + drill/2021-11-07
-/gerber + drill/2021-11-08
-/gerber + drill/2021-11-09
-/gerber + drill/2021-11-10
+/revisions/2021-10-29
+/revisions/2021-10-30
+/revisions/2021-11-02
+/revisions/2021-11-03
+/revisions/2021-11-04
+/revisions/2021-11-05
+/revisions/2021-11-06
+/revisions/2021-11-07
+/revisions/2021-11-08
+/revisions/2021-11-09
+/revisions/2021-11-10
 
 # ignoring KiCAD files
 *.lib
