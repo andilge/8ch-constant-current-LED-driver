@@ -1,8 +1,11 @@
 # Each folder stands for it's own revision showing the build date
 
+## folder board-views
+Here some preview pictures of the board. What you see is what you'll get in the end.
+
 ## folder jlcpcb-board-prod
 ### gerber, drill and map files
-The zip file contains it all. No need to unpack, it can be uploaded to the board manufacturer as it is. All tests with the board passed QC with 1oz copper layers.
+The zip file is adapted to the manufacturers needs and contains it all. No need to unpack, it can be uploaded to the board manufacturer as it is. All tests with the board passed QC with 1oz copper layers.
 
 ### smd-bom.csv and top-pos.csv
 These 2 files can be used if you want jlcpcb.com to solder all SMD components on the board. Please upload bom.csv as BOM, top-pos.csv as CPL.
@@ -10,10 +13,7 @@ These 2 files can be used if you want jlcpcb.com to solder all SMD components on
 
 ## folder pcbway-board-prod
 ### gerber, drill and map files
-The zip file contains it all. No need to unpack, it can be uploaded to the board manufacturer as it is. All tests with the board passed QC with 1oz copper layers.
-
-### board-view pngs
-Preview pictures of the board.
+The zip file is adapted to the manufacturers needs and contains it all. No need to unpack, it can be uploaded to the board manufacturer as it is. All tests with the board passed QC with 1oz copper layers.
 
 ### bom.pdf
 This is the list with all parts and some installation material. *Download* the file and get access to real offers in the column "purchase" (suggestive).
