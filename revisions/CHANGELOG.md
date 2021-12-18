@@ -5,7 +5,7 @@
 ## [0.99r2] - 2021-12-16
 ### Added
 - introducing jlcpcb-smd-bom.csv BOM and jlcpcb-top-pos.csv CPL for the SMD assembly of the board by jlcpcb. 
-  **ATTENTION**: All through hole components are *NOT* included in this BOM and the assembly. Please complete by manualy soldering them !
+  **ATTENTION**: All through hole components are NOT included in this pre-assembly process. Please complete the board by manualy soldering them!
 ### Changed
 ### Deprecated
 ### Removed

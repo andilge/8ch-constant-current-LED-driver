@@ -1,4 +1,4 @@
-# ignoring folders
+# excluding folders
 /.git
 /revisions/2021-10-29
 /revisions/2021-10-30
@@ -12,7 +12,7 @@
 /revisions/2021-11-09
 /revisions/2021-11-10
 
-# ignoring KiCAD files
+# excluding KiCAD files
 *.lib
 *.bck
 *.dcm
@@ -29,14 +29,15 @@ fp-info-cache
 fp-lib-table
 sym-lib-table
 
-# ignoring all files with specific file type
+# excluding all files with specific file type
 *.xlsx
 *.xlsx#
 *.odt
 
-# ignoring specific files
+# excluding specific files
 jlcpcb + kicad 5, how to genereate gerber + drill files.pdf
 pcbway + kicad 5, how to genereate gerber + drill files.pdf
 jlcpcb-How to generate the BOM and Centroid file from KiCAD.pdf
+enclosure-labels.pdf
 schematic-8ch-constant-current-LED-driver.pdf
 
