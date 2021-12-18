@@ -92,7 +92,7 @@ api:
 # <<: !include common/ota.yaml
 ota:
   safe_mode: true
-  password: 'yout super secret ota password' # !secret ota_password
+  password: 'your super secret ota password' # !secret ota_password
 
 
 # <<: !include common/time.yaml
@@ -186,15 +186,37 @@ light:
     gamma_correct: ${my_gamma_correct}
     effects:
       - lambda:
-          name: 'Fader 30-100% - 20sec'
-          update_interval: 30000ms
+          name: 'Fader 15-100% 20sec'
+          update_interval: 20000ms
           lambda: |-
             static int state = 0;
             auto call = id(downlight_01).turn_on();
-            call.set_transition_length(19500);
-            call.set_brightness((state * 0.7) + 0.3);
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.85));
             call.perform();
-            state = 1 - state;    
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 15-50% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_01).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.35));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 40-90% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_01).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.4 + (state * 0.5));
+            call.perform();
+            state = 1 - state;
 
   - platform: monochromatic
     id: downlight_02
@@ -204,15 +226,37 @@ light:
     gamma_correct: ${my_gamma_correct}
     effects:
       - lambda:
-          name: 'Fader 30-100% - 20sec'
-          update_interval: 30000ms
+          name: 'Fader 15-100% 20sec'
+          update_interval: 20000ms
           lambda: |-
             static int state = 0;
             auto call = id(downlight_02).turn_on();
-            call.set_transition_length(19500);
-            call.set_brightness((state * 0.7) + 0.3);
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.85));
             call.perform();
-            state = 1 - state;   
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 15-50% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_02).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.35));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 40-90% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_02).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.4 + (state * 0.5));
+            call.perform();
+            state = 1 - state;
 
   - platform: monochromatic
     id: downlight_03
@@ -222,15 +266,37 @@ light:
     gamma_correct: ${my_gamma_correct}
     effects:
       - lambda:
-          name: 'Fader 30-100% - 20sec'
-          update_interval: 30000ms
+          name: 'Fader 15-100% 20sec'
+          update_interval: 20000ms
           lambda: |-
             static int state = 0;
             auto call = id(downlight_03).turn_on();
-            call.set_transition_length(19500);
-            call.set_brightness((state * 0.7) + 0.3);
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.85));
             call.perform();
-            state = 1 - state; 
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 15-50% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_03).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.35));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 40-90% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_03).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.4 + (state * 0.5));
+            call.perform();
+            state = 1 - state;
 
   - platform: monochromatic
     id: downlight_04
@@ -240,13 +306,35 @@ light:
     gamma_correct: ${my_gamma_correct}
     effects:
       - lambda:
-          name: 'Fader 30-100% - 20sec'
-          update_interval: 30000ms
+          name: 'Fader 15-100% 20sec'
+          update_interval: 20000ms
           lambda: |-
             static int state = 0;
             auto call = id(downlight_04).turn_on();
-            call.set_transition_length(19500);
-            call.set_brightness((state * 0.7) + 0.3);
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.85));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 15-50% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_04).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.35));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 40-90% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_04).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.4 + (state * 0.5));
             call.perform();
             state = 1 - state;
 
@@ -258,13 +346,35 @@ light:
     gamma_correct: ${my_gamma_correct}
     effects:
       - lambda:
-          name: 'Fader 30-100% - 20sec'
-          update_interval: 30000ms
+          name: 'Fader 15-100% 20sec'
+          update_interval: 20000ms
           lambda: |-
             static int state = 0;
             auto call = id(downlight_05).turn_on();
-            call.set_transition_length(19500);
-            call.set_brightness((state * 0.7) + 0.3);
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.85));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 15-50% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_05).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.35));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 40-90% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_05).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.4 + (state * 0.5));
             call.perform();
             state = 1 - state;
 
@@ -276,13 +386,35 @@ light:
     gamma_correct: ${my_gamma_correct}
     effects:
       - lambda:
-          name: 'Fader 30-100% - 20sec'
-          update_interval: 30000ms
+          name: 'Fader 15-100% 20sec'
+          update_interval: 20000ms
           lambda: |-
             static int state = 0;
             auto call = id(downlight_06).turn_on();
-            call.set_transition_length(19500);
-            call.set_brightness((state * 0.7) + 0.3);
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.85));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 15-50% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_06).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.35));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 40-90% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_06).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.4 + (state * 0.5));
             call.perform();
             state = 1 - state;
 
@@ -295,13 +427,35 @@ light:
 
     effects:
       - lambda:
-          name: 'Fader 30-100%  30sec'
-          update_interval: 30000ms
+          name: 'Fader 15-100% 20sec'
+          update_interval: 20000ms
           lambda: |-
             static int state = 0;
             auto call = id(downlight_07).turn_on();
-            call.set_transition_length(19500);
-            call.set_brightness((state * 0.7) + 0.3);
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.85));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 15-50% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_07).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.35));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 40-90% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_07).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.4 + (state * 0.5));
             call.perform();
             state = 1 - state;
 
@@ -314,13 +468,35 @@ light:
 
     effects:
       - lambda:
-          name: 'Fader 30-100% - 20sec'
-          update_interval: 30000ms
+          name: 'Fader 15-100% 20sec'
+          update_interval: 20000ms
           lambda: |-
             static int state = 0;
             auto call = id(downlight_08).turn_on();
-            call.set_transition_length(19500);
-            call.set_brightness((state * 0.7) + 0.3);
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.85));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 15-50% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_08).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.15 + (state * 0.35));
+            call.perform();
+            state = 1 - state;
+
+      - lambda:
+          name: 'Fader 40-90% 20sec'
+          update_interval: 20000ms
+          lambda: |-
+            static int state = 0;
+            auto call = id(downlight_08).turn_on();
+            call.set_transition_length(20000);
+            call.set_brightness(0.4 + (state * 0.5));
             call.perform();
             state = 1 - state;
 
@@ -650,4 +826,5 @@ status_led:
   pin:
     number: GPIO2
     inverted: false
+
 
