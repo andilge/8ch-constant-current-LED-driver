@@ -12,9 +12,9 @@ With this starting position, the desire arose to do all the lighting in the new 
 Sweet, I can do nice pwm easily with an ESP32, the first prototype board was soon built up with it. If only all this could be done even faster and easier, without breadboard and soldering connections individually… you know what came next: I built up my own board with the essentials of the module LD24AJTA and an ESP32 on it.
 
 ## Where to find things
-The board revisions are accessible in the  "gerber + drills" folder. Check CHANGELOG.md for detailed revision history.
+The board revisions are accessible in the folder "revisions". Check CHANGELOG.md for detailed revision history.
 
-An example esphome yaml file is located in the "esphome" folder.
+An example esphome yaml file is located in the folder "esphome".
 
 ## Where to go
 I know some additional information is needed to get going. I'm planning to build up a wiki here with a step by step procedure, but I got no time to roll this off swiftly :-(
