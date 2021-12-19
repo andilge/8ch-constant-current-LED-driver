@@ -1,9 +1,10 @@
 # Changelog
 
 ## [Unreleased]
-### Deep diving once again into tests with infrared thermal cam on the very last revision. Don't get me wrong, this has been done with positive results in earlier revions and it's only been improoved. Documentation and publication is lacking though.'
-### Wiki and step by step guide. I know I'm lazy at documentation, just more facinated in getting things up and running :-).'
-### All the external sensor/actor stuff with pir motion sensor and rotary encoder on 10 meter distant ftom board. Since the connectors have changed with v0.99 I'lll have to wait until these parts and the new board version are here first.'
+### Added
+- Deep diving once again into *tests with infrared thermal cam on the very last revision*. Don't get me wrong, this has been done with positive results in earlier revions and it's only been improoved. Documentation and publication is lacking though.
+- *Wiki and step by step guide*. I know I'm lazy at documentation, just more facinated in getting things up and running :-).
+- Tests wit all the *external sensor/actor stuff* with pir motion sensor and rotary encoder on 10 meter distant ftom board. Since the connectors have changed with v0.99 I'lll have to wait until these parts and the new board version are here first.
 
 ## [0.99r2] - 2021-12-16
 ### Added
