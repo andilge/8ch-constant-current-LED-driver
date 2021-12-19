@@ -130,8 +130,8 @@
 - focusing on installing the board in a pre made enclosure with mounting hole distances 105-55mm
 - shrinking the board size
 - setting up a 4th mounting hole on the board and placing all of them at the correct place
-- adapting etch cuts with rounded corners to the matching size
-- redoing **all component placement, all track routing and all silkscreens** from zero
+- adapting edge cuts with rounded corners to the matching size
+- redoing **all component placement, all track routing and all silkscreens** from almost zero
 - testing, measuring, checking heat dissipation with ir cam, rechecking power handling and long term tests once again
 ### Deprecated
 ### Removed
