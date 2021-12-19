@@ -78,7 +78,7 @@ wifi:
   ap:
     # after connecting to it, navigate to http://192.168.4.1/
     ssid: '${my_name} AP'
-    password: 'passphrase of the esp WiFi' # !secret ap_wifi_password
+    password: 'passphrase for the esp WiFi' # !secret ap_wifi_password
     channel: 8
     ap_timeout: 1min
 
