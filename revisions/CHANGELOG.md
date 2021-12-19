@@ -2,14 +2,13 @@
 
 ## [Unreleased]
 ### To be added
-- Deep diving once again into *tests with infrared thermal cam on the very last revision*. Don't get me wrong, this has been done with positive results in earlier revions and it's only been improoved. Documentation and publication is lacking though.
-- *Wiki and step by step guide*. I know I'm lazy at documentation, just more facinated in getting things up and running :-).
-- Tests wit all the *external sensor/actor stuff* with pir motion sensor and rotary encoder on 10 meter distant ftom board. Since the connectors have changed with v0.99 I'lll have to wait until these parts and the new board version are here first.
+- Deep diving once again into tests with infrared thermal cam on the very last revision. Don't get me wrong, this has been done with positive results in earlier revisions and it's only been improved. Documentation and publication is lacking though
+- Wiki and step by step guide. I know I'm lazy at documentation, just more fascinated in getting things up and running :-)
+- Tests with all the external sensor/actor stuff with pir motion sensor and rotary encoder on 10 meter distant from board. Since the connectors have changed with v0.99 I'll have to wait until these parts and the new board version are here first
 
 ## [0.99r2] - 2021-12-16
 ### Added
-- introducing jlcpcb-smd-bom.csv BOM and jlcpcb-top-pos.csv CPL for the SMD assembly of the board by jlcpcb. 
-  **ATTENTION**: All through hole components are NOT included in this pre-assembly process. Please complete the board by manualy soldering them!
+- introducing jlcpcb-smd-bom.csv BOM and jlcpcb-top-pos.csv CPL for the SMD assembly of the board by jlcpcb. **ATTENTION**: All through hole components are NOT included in this per-assembly process. Please complete the board by manually soldering them
 ### Changed
 ### Deprecated
 ### Removed
@@ -19,10 +18,10 @@
 ## [0.99] - 2021-12-13
 ### Added
 ### Changed
-- using horizontal JST connectors near the board edge to enable connecting the pir sensor and rotary encoder easily thru the encloser
-- new placement for the esp32 giving space for the jst connectors near the board edge
-- rerouting all tracks around the jst connector and esp32
-- minor improvments in the 5 Volt line, better placement and routing of components
+- using horizontal JST connectors near the board edge to enable connecting the pir sensor and rotary encoder easily thru the enclosure
+- new placement for the esp32 giving space for the JST connectors near the board edge
+- rerouting all tracks around the JST connectors and esp32
+- minor improvments in the 5 Volt line, better componenent placement and track routing
 ### Deprecated
 ### Removed
 ### Fixed
@@ -31,9 +30,10 @@
 ## [0.98] - 2021-12-12
 ### Added
 ### Changed
-- new power inductor Bourns SRN6045 for better availabilty (widley spread in different stocks)
+- new power inductor Bourns SRN6045 for better availabilty (widley spread in different stocks).
+- Alternative inductor is GLE GCNR6045 with same characteristics and dimensions
 - spreading out ground area on front and back layer
-- silkscreen at LED1 - LED 4 rotated for better readability
+- silkscreen near screw terminal connectors LED1 - LED4 rotated for better readability
 - new graphics for board dimensions and mounting hole distances
 ### Deprecated
 ### Removed
@@ -42,7 +42,7 @@
 
 ## [0.97] - 2021-12-10
 ### Added
-- CHANGELOG.md format based on [Keep a Changelog](https://keepachangelog.com)
+- introducing CHANGELOG.md with format based on [Keep a Changelog](https://keepachangelog.com)
 ### Changed
 - optimizing vias
 - small improvement on vcc tracks to led driver ic
