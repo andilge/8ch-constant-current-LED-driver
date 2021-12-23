@@ -544,10 +544,10 @@ sensor:
     internal: true
     pin_a: 
       number: GPIO26
-      mode: INPUT_PULLUP
+      mode: INPUT
     pin_b: 
       number: GPIO27
-      mode: INPUT_PULLUP
+      mode: INPUT
     resolution: 1
 
     # increasing brightness
@@ -790,7 +790,7 @@ binary_sensor:
     internal: true
     pin:
       number: GPIO05
-      mode: INPUT_PULLUP
+      mode: INPUT
       inverted: true
     filters:
       # eliminate bouncing noise
