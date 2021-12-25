@@ -52,7 +52,7 @@ substitutions:
   my_static_ip: '10.11.12.13' # use one that fits in your network
   my_pwm_frequency: '19531Hz'
   my_default_transition: '2.5s'
-  my_gamma_correct: '2.6'
+  my_gamma_correct: '2.5'
 
 # define core configs
 esphome:
@@ -130,42 +130,59 @@ dallas:
 
 script:
   # react on motion detection during night times
-  # turn on lights at mid to high brightness and stay like this for some time
+  # turn on lights at mid to high brightness with 10sec transistion time
+  # stay like this for some time
   # then fade down lights to low brightness with 30sec transistion time
   - id: motion_light_sequence
     mode: restart
     then:
-      - light.turn_on: 
-          id: downlight_01
-          brightness: 0.66
+      - lambda: |-
+          auto call = id(downlight_01).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
 
-      - light.turn_on: 
-          id: downlight_02
-          brightness: 0.66
+      - lambda: |-
+          auto call = id(downlight_02).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
 
-      - light.turn_on: 
-          id: downlight_03
-          brightness: 0.66
+      - lambda: |-
+          auto call = id(downlight_03).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
 
-      - light.turn_on: 
-          id: downlight_04
-          brightness: 0.66
+      - lambda: |-
+          auto call = id(downlight_04).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
 
-      - light.turn_on: 
-          id: downlight_05
-          brightness: 0.66
+      - lambda: |-
+          auto call = id(downlight_05).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
 
-      - light.turn_on: 
-          id: downlight_06
-          brightness: 0.66
+      - lambda: |-
+          auto call = id(downlight_06).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
 
-      - light.turn_on: 
-          id: downlight_07
-          brightness: 0.66
+      - lambda: |-
+          auto call = id(downlight_07).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
 
-      - light.turn_on: 
-          id: downlight_08
-          brightness: 0.66
+      - lambda: |-
+          auto call = id(downlight_08).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
 
       # stay at this level for some time
       - delay: 150sec
@@ -906,18 +923,14 @@ text_sensor:
     name: '${my_name} ESPHome version'
 
 binary_sensor:
-  # define the toggle switch and it's action
+  # define the momentary switch and it's action
   - platform: gpio
-    id: click_button
-    internal: true
+    name: '${my_name} light switch'
+    id: button_switch
     pin:
       number: GPIO05
       mode: INPUT
       inverted: true
-    filters:
-      # eliminate bouncing noise
-      - delayed_on_off: 50ms
-
     on_click:
       then:
         - light.toggle: downlight_01
