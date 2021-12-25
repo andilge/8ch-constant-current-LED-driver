@@ -3,7 +3,7 @@
 # 8 channel led driver constant current #
 #########################################
 
-# code made for board v0.98, 2021-12-12
+# code made for board v0.991, 2021-12-25
 
 # esp board model:  MH-ET LIVE ESP32 MiniKit
 
@@ -51,7 +51,7 @@ substitutions:
   my_reboot_timeout: '30min'
   my_static_ip: '10.11.12.13' # use one that fits in your network
   my_pwm_frequency: '19531Hz'
-  my_default_transition: '2s'
+  my_default_transition: '2.5s'
   my_gamma_correct: '2.6'
 
 # define core configs
@@ -79,8 +79,8 @@ wifi:
     # after connecting to it, navigate to http://192.168.4.1/
     ssid: '${my_name} AP'
     password: 'passphrase for the esp WiFi' # !secret ap_wifi_password
-    channel: 8
     ap_timeout: 1min
+    # channel: 8
 
 captive_portal:
 
@@ -127,6 +127,90 @@ dallas:
     update_interval: 72s # reads out 50/hour, 1200/day
 
 ##### start specific configs #####
+
+script:
+  # react on motion detection during night times
+  # turn on lights at mid to high brightness and stay like this for some time
+  # then fade down lights to low brightness with 30sec transistion time
+  - id: motion_light_sequence
+    mode: restart
+    then:
+      - light.turn_on: 
+          id: downlight_01
+          brightness: 0.66
+
+      - light.turn_on: 
+          id: downlight_02
+          brightness: 0.66
+
+      - light.turn_on: 
+          id: downlight_03
+          brightness: 0.66
+
+      - light.turn_on: 
+          id: downlight_04
+          brightness: 0.66
+
+      - light.turn_on: 
+          id: downlight_05
+          brightness: 0.66
+
+      - light.turn_on: 
+          id: downlight_06
+          brightness: 0.66
+
+      - light.turn_on: 
+          id: downlight_07
+          brightness: 0.66
+
+      - light.turn_on: 
+          id: downlight_08
+          brightness: 0.66
+
+      # stay at this level for some time
+      - delay: 150sec
+
+      # fade lights down slowly to low brightness
+      - lambda: |-
+          auto call = id(downlight_01).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_02).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_03).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_04).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_05).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_06).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_07).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_08).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
 
 output:
   - platform: ledc
@@ -501,6 +585,48 @@ light:
             state = 1 - state;
 
 switch:
+  # virtual switch for night light
+  - platform: template
+    name: '${my_name} night light'
+    id: night_light
+    icon: 'mdi:weather-night'
+    optimistic: true
+    restore_state: true
+    on_turn_on:
+      - script.execute: motion_light_sequence
+
+    on_turn_off:
+      - script.stop: ${my_device}_motion_light_sequence
+      - light.turn_off: downlight_01
+      - light.turn_off: downlight_02
+      - light.turn_off: downlight_03
+      - light.turn_off: downlight_04
+      - light.turn_off: downlight_05
+      - light.turn_off: downlight_06
+      - light.turn_off: downlight_07
+      - light.turn_off: downlight_08
+
+  # virtual switch for auto night light
+  - platform: template
+    name: '${my_name} auto night light'
+    id: auto_night_light
+    icon: 'mdi:brightness-auto'
+    optimistic: true
+    restore_state: true
+    on_turn_on:
+      - if:
+          condition:
+            - sun.is_below_horizon:
+          then:
+            switch.turn_on: night_light
+            
+    on_turn_off:
+      - if:
+          condition:
+            - sun.is_above_horizon:
+          then:
+            switch.turn_off: night_light
+
   # - !include common/switches/restart.yaml
   - platform: restart
     name: '${my_name} reboot'
@@ -525,10 +651,6 @@ sensor:
             id: delta_onboard_temperature
             state: !lambda return (id(onboard_temperature).state) - (id(prev_onboard_temperature).state);
         # might add a notification if delta_onboard_temperature is bigger than 3°C in 144sec
-    filters:
-      # do not report changes lower than +-0.1°C
-      - delta: 0.1
-
 
   - platform: template
     id: prev_onboard_temperature
@@ -807,6 +929,22 @@ binary_sensor:
         - light.toggle: downlight_07
         - light.toggle: downlight_08
 
+  - platform: gpio
+    device_class: motion
+    name: '${my_name} motion'
+    id: motion
+    pin:
+      number: GPIO32
+      mode: INPUT
+      inverted: true
+    # do night light sequence on motion detection only if switch night light is on
+    on_press:
+      if:
+        condition:
+          switch.is_on: night_light
+        then:
+          script.execute: motion_light_sequence
+
   # - !include common/binary_sensors/status.yaml
   - platform: status
     name: '${my_name} connection'
@@ -820,11 +958,35 @@ binary_sensor:
         else:
           - logger.log: '${my_name}: Connection api/mqtt is down.'
 
+sun:
+  latitude: !secret latitude
+  longitude: !secret longitude
+  
+  on_sunset:
+      if:
+        condition:
+          switch.is_on: auto_night_light
+        then:
+          - switch.turn_on: night_light
+  
+  on_sunrise:
+      if:
+        condition:
+          switch.is_on: auto_night_light
+        then:
+          - light.turn_off: downlight_01
+          - light.turn_off: downlight_02
+          - light.turn_off: downlight_03
+          - light.turn_off: downlight_04
+          - light.turn_off: downlight_05
+          - light.turn_off: downlight_06
+          - light.turn_off: downlight_07
+          - light.turn_off: downlight_08
+
 status_led:
   # use blue led on esp for status notifications
   # https://esphome.io/components/status_led.html
   pin:
     number: GPIO2
     inverted: false
-
 

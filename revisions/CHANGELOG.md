@@ -2,10 +2,32 @@
 
 ## [Unreleased]
 ### To be added
-- Hardware debouncing network for rotary encoder and binary sensor (monentary switch)
+- 
 - Deep diving once again into tests with infrared thermal cam on the very last revision. Don't get me wrong, this has been done with positive results in earlier revisions and it's only been improved. Documentation and publication is lacking though
-- Wiki and step by step guide. I know I'm lazy at documentation, just more fascinated in getting things up and running :-)
-- Tests with all the external sensor/actor stuff with pir motion sensor and rotary encoder on 10 meter distant from board. Since the connectors have changed with v0.99 I'll have to wait until these parts and the new board version are here first
+- Wiki and step by step guide. I know I'm lazy at documentation, just more fascinated in getting things up, running and QCed :-)
+- Tests with all the external sensor/actor stuff with pir motion sensor and rotary encoder on 10 meter distant from board. Since the connectors have changed with v0.99 and debouncing/hum filter has dropped in in v0.991 I'll have to wait until these parts and the new board version are here first
+
+## [0.991] - 2021-12-22
+### Added
+- Hardware debouncing network for rotary encoder and hardware debouncing/hum filters for binary sensor (monentary switch) and motion sensor
+- setting up clear anotions (R999, C999 ...) on the filtering componets to match up nively with the bound JST XH connector and it's pin => impacting all the BOMs
+- tracks and routes around the filter network.
+- revamping esphome yaml with night light script and virtual switches night light + auto night light
+### Changed
+- changed Input mode in  esphome yaml file from INPUT_PULLUP to INPUT 
+- enhancing anotations (R999, C999 ...) all over the board. Don't get fooled by the decimal numbers, look at it more like bulleted numbers (most significant to least significant) => impacting all the BOMs
+- rerouting of all tracks around the ESP32 (to integrate the debouncing/hum filter network)
+- small changes in placement and routing of the 5V compoments and tracks
+- bruching up the silkscreens in front of all connectors
+- changing size and placement of the made for ESPHome logo
+- minor improvments in routing in LED power tracks
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+
+
 
 ## [0.99r2] - 2021-12-16
 ### Added

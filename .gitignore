@@ -13,31 +13,35 @@
 /revisions/2021-11-10
 
 # excluding KiCAD files
-*.lib
-*.bck
-*.dcm
 *.kicad_pcb
-*.kicad_pcb-bak
 *.net
 *.pro
 *.sch
 *.sch-bak
-CC dimmer low voltage-rescue.lib
-CC dimmer low voltage.csv
-CC dimmer low voltage.xml
+*.xml
+*.lib
+*rescue.bck
+*rescue.dcm
+*rescue.lib
 fp-info-cache
 fp-lib-table
 sym-lib-table
 
-# excluding all files with specific file type
+# excluding other file types and temp. files
 *.xlsx
 *.xlsx#
 *.odt
+*.odt#
+*.ods
+*.ods#
+*.csv#
 
 # excluding specific files
+# in root folder
 jlcpcb + kicad 5, how to genereate gerber + drill files.pdf
 pcbway + kicad 5, how to genereate gerber + drill files.pdf
 jlcpcb-How to generate the BOM and Centroid file from KiCAD.pdf
-enclosure-labels.pdf
-schematic-8ch-constant-current-LED-driver.pdf
 
+# in sub folders
+/revisions/latest-schematic-diagram-bw.pdf
+/revisions/enclosure-labels.pdf
