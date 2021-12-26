@@ -2,7 +2,6 @@
 
 ## [Unreleased]
 ### To be added
-- 
 - Deep diving once again into tests with infrared thermal cam on the very last revision. Don't get me wrong, this has been done with positive results in earlier revisions and it's only been improved. Documentation and publication is lacking though
 - Wiki and step by step guide. I know I'm lazy at documentation, just more fascinated in getting things up, running and QCed :-)
 - Tests with all the external sensor/actor stuff with pir motion sensor and rotary encoder on 10 meter distant from board. Since the connectors have changed with v0.99 and debouncing/hum filter has dropped in in v0.991 I'll have to wait until these parts and the new board version are here first
@@ -25,9 +24,6 @@
 ### Removed
 ### Fixed
 ### Security
-
-
-
 
 ## [0.99r2] - 2021-12-16
 ### Added
