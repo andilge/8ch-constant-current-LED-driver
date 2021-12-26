@@ -8,18 +8,19 @@
 
 ## [0.991] - 2021-12-22
 ### Added
-- Hardware debouncing network for rotary encoder and hardware debouncing/hum filters for binary sensor (monentary switch) and motion sensor
-- setting up clear anotions (R999, C999 ...) on the filtering componets to match up nively with the bound JST XH connector and it's pin => impacting all the BOMs
-- tracks and routes around the filter network.
-- revamping esphome yaml with night light script and virtual switches night light + auto night light
+- introducing new hardware debouncing and hum filter network for rotary encoder, binary sensor (monentary switch) and motion sensor
+- adding components, tracks and routes around the filter network
+- disposing a free to use 3.3V pin and fourth GND pin on the double rowed angeled pin header
 ### Changed
-- changed Input mode in  esphome yaml file from INPUT_PULLUP to INPUT 
-- enhancing anotations (R999, C999 ...) all over the board. Don't get fooled by the decimal numbers, look at it more like bulleted numbers (most significant to least significant) => impacting all the BOMs
-- rerouting of all tracks around the ESP32 (to integrate the debouncing/hum filter network)
+- changed mode in  esphome yaml file from INPUT_PULLUP to INPUT 
+- enhancing anotations (R999, C999 ...) all over the board. Don't get fooled by the decimal numbers, look at it more like bulleted numbers (most significant to least significant)
+- rerouting of all tracks around the ESP32 (integrating the debouncing/hum filter network)
 - small changes in placement and routing of the 5V compoments and tracks
 - bruching up the silkscreens in front of all connectors
 - changing size and placement of the made for ESPHome logo
-- minor improvments in routing in LED power tracks
+- redoing the bom.pdf, setting up all new component anotations and rechecking all purchase URLs
+- revamping esphome yaml with night light script and virtual switches night light and auto night light
+- minor routing improvments in LED power tracks
 ### Deprecated
 ### Removed
 ### Fixed
@@ -96,8 +97,8 @@
 - [lcsc](https://lcsc.com/) part number in bom.pdf where possible, trying to scope on pre building the board. Not including (not available or too expensive, better get them from [aliexpress](https://aliexpress.com))
   - ESP32 mini
   - step down converter module 5V 1A
-- usage of teardrops on round tht pads
-- interactive bom (ibom.html) as help for component placement reference on board
+- first time usage of teardrops on round tht pads
+- introducing the interactive bom (ibom.html) as help for component placement reference on board
 ### Changed
 - joined the free to use GPIOs, 5 Volt fused and ground header pins in one horizontal connector
 - using electrolyte capacitors with tht layout (formally smd) for better availability/prices and easier handling
