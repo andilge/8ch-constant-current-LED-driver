@@ -12,11 +12,13 @@
 # ---------------------------------------
 # | GPIO | Board | Usage                |
 # |------|-------|----------------------|
-# | 04   | U20   | dallas temp. sensor  |
+# | 02   | ~     | blue LED on module   |
 # |------|-------|----------------------|
-# | 05   | J130  | momentary switch     |
+# | 04   | U701  | dallas temp. sensor  |
 # |------|-------|----------------------|
-# | 13   | J110	 | free to use GPIO     |
+# | 05   | J301  | momentary switch     |
+# |------|-------|----------------------|
+# | 13   | J501	 | free to use GPIO     |
 # |------|-------|----------------------|
 # | 16   | LED1	 | LED1 dimming (pwm)   |
 # |------|-------|----------------------|
@@ -34,13 +36,13 @@
 # |------|-------|----------------------|
 # | 25   | LED8  | LED8 dimming (pwm)   |
 # |------|-------|----------------------|
-# | 26   | J130  | rotary encoder pin A |
+# | 26   | J301  | rotary encoder pin A |
 # |------|-------|----------------------|
-# | 27   | J130  | rotary encoder pin B |
+# | 27   | J301  | rotary encoder pin B |
 # |------|-------|----------------------|
-# | 32   | J120  | motion sensor (pir)  |
+# | 32   | J401  | motion sensor (pir)  |
 # |------|-------|----------------------|
-# | 33   | J110  | free to use GPIO     |
+# | 33   | J501  | free to use GPIO     |
 # ---------------------------------------
 
 ##### basic configs #####
@@ -683,10 +685,16 @@ sensor:
     internal: true
     pin_a: 
       number: GPIO26
-      mode: INPUT
+      mode: 
+        input: true
+        inverted: false
+        pullup: false
     pin_b: 
       number: GPIO27
-      mode: INPUT
+      mode: 
+        input: true
+        inverted: false
+        pullup: false
     resolution: 1
 
     # increasing brightness
@@ -929,8 +937,10 @@ binary_sensor:
     id: button_switch
     pin:
       number: GPIO05
-      mode: INPUT
-      inverted: true
+      mode: 
+        input: true
+        inverted: true
+        pullup: false
     on_click:
       then:
         - light.toggle: downlight_01
@@ -948,8 +958,10 @@ binary_sensor:
     id: motion
     pin:
       number: GPIO32
-      mode: INPUT
-      inverted: true
+      mode: 
+        input: true
+        inverted: true
+        pullup: false
     # do night light sequence on motion detection only if switch night light is on
     on_press:
       if:
@@ -1001,5 +1013,7 @@ status_led:
   # https://esphome.io/components/status_led.html
   pin:
     number: GPIO2
-    inverted: false
+    mode:
+      output: true
+      inverted: false
 
