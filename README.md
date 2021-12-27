@@ -1,7 +1,7 @@
-![The PCB](https://github.com/andilge/8ch-constant-current-LED-driver/blob/master/images/board-views.png?raw=true)
-
 # 8 channel LED constant current driver
 Constant current driver with esp32 MCU made for esphome
+
+![The PCB](https://github.com/andilge/8ch-constant-current-LED-driver/blob/master/images/board-views.png?raw=true)
 
 ## Preamble
 We are planning our new house. A seemingly endless process full of technical plans and proposed solutions. Among the proposals there are good ones, bad ones but also too expensive or immature ones.
