@@ -16,10 +16,10 @@
 - enhancing anotations (R999, C999 ...) all over the board. Don't get fooled by the decimal numbers, look at it more like bulleted numbers (most significant to least significant)
 - rerouting of all tracks around the ESP32 (integrating the debouncing/hum filter network)
 - small changes in placement and routing of the 5V compoments and tracks
-- bruching up the silkscreens in front of all connectors
+- brushing up the silkscreens in front of all connectors
 - changing size and placement of the made for ESPHome logo
 - redoing the bom.pdf, setting up all new component anotations and rechecking all purchase URLs
-- revamping esphome yaml with night light script and virtual switches night light and auto night light
+- pimping the esphome yaml adding night light script and virtual switches night light and auto night light
 - minor routing improvments in LED power tracks
 ### Deprecated
 ### Removed
