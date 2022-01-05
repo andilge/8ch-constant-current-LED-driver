@@ -4,23 +4,14 @@
 ### To be added
 - Deep diving once again into tests with infrared thermal cam on the very last revision. Don't get me wrong, this has been done with positive results in earlier revisions and it's only been improved. Documentation and publication is lacking though
 - Wiki and step by step guide. I know I'm lazy at documentation, just more fascinated in getting things up, running and QCed :-)
-- Tests with all the external sensor/actor stuff with pir motion sensor and rotary encoder on 10 meter distant from board. Since the connectors have changed with v0.99 and debouncing/hum filter has dropped in in v0.991 I'll have to wait until these parts and the new board version are here first
+- Tests with all the external sensor/actor stuff with pir motion sensor and rotary encoder on 10 meter distant from board. Since the connectors have changed with v0.99 and debouncing/hum filter has dropped in with v0.991 I'll have to wait until these parts and the new board version are here first
 
-## [0.991] - 2021-12-22
+## [0.992] - 2022-01-05
 ### Added
-- introducing new hardware debouncing and hum filter network for rotary encoder, binary sensor (monentary switch) and motion sensor
-- adding components, tracks and routes around the filter network
-- disposing a free to use 3.3V pin and fourth GND pin on the double rowed angeled pin header
+- Introducing small Buzzard labels near the screw terminals
+- Introducing thermal reliefs on though hole and smd solder pads when in a zone
 ### Changed
-- changed mode in  esphome yaml file from INPUT_PULLUP to INPUT 
-- enhancing anotations (R999, C999 ...) all over the board. Don't get fooled by the decimal numbers, look at it more like bulleted numbers (most significant to least significant)
-- rerouting of all tracks around the ESP32 (integrating the debouncing/hum filter network)
-- small changes in placement and routing of the 5V compoments and tracks
-- brushing up the silkscreens in front of all connectors
-- changing size and placement of the made for ESPHome logo
-- redoing the bom.pdf, setting up all new component anotations and rechecking all purchase URLs
-- pimping the esphome yaml adding night light script and virtual switches night light and auto night light
-- minor routing improvments in LED power tracks
+- minor changes of placement of some vias, moving away from silk screens
 ### Deprecated
 ### Removed
 ### Fixed

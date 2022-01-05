@@ -13,11 +13,14 @@
 /revisions/2021-11-10
 
 # excluding KiCAD files
+# Format documentation: https://dev-docs.kicad.org/en/file-formats/
 *.kicad_pcb
 *.kicad_pcb-bak
 *.net
 *.pro
+*.kicad_pro
 *.sch
+*.kicad_sch
 *.sch-bak
 *.xml
 *.lib
@@ -38,11 +41,5 @@ sym-lib-table
 *.csv#
 
 # excluding specific files
-# in root folder
-jlcpcb + kicad 5, how to genereate gerber + drill files.pdf
-pcbway + kicad 5, how to genereate gerber + drill files.pdf
-jlcpcb-How to generate the BOM and Centroid file from KiCAD.pdf
-
-# in sub folders
 /revisions/latest-schematic-diagram-bw.pdf
 /revisions/enclosure-labels.pdf

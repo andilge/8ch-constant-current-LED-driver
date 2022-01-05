@@ -1,0 +1,35 @@
+### Missing 3D models - created on 2021-12-28 14:23
+### Printed by checking_3D_models plugin
+Board file: /media/andi/PortableApps/home assistant/KiCAD/CC dimmer low voltage/CC dimmer low voltage.kicad_pcb
+3D missing models written to:
+/media/andi/PortableApps/home assistant/KiCAD/CC dimmer low voltage/CC dimmer low voltage_missing3Dmodels.txt
+-------
+('U81', '${KISYS3DMOD}/Package_TO_SOT_SMD.3dshapes/SOT-89-3.wrl')
+('U71', '${KISYS3DMOD}/Package_TO_SOT_SMD.3dshapes/SOT-89-3.wrl')
+('U61', '${KISYS3DMOD}/Package_TO_SOT_SMD.3dshapes/SOT-89-3.wrl')
+('U51', '${KISYS3DMOD}/Package_TO_SOT_SMD.3dshapes/SOT-89-3.wrl')
+('C31', '${KISYS3DMOD}/Capacitor_SMD.3dshapes/C_0805_2012Metric.wrl')
+('C51', '${KISYS3DMOD}/Capacitor_SMD.3dshapes/C_0805_2012Metric.wrl')
+('C52', '${KISYS3DMOD}/Capacitor_SMD.3dshapes/C_0805_2012Metric.wrl')
+('C61', '${KISYS3DMOD}/Capacitor_SMD.3dshapes/C_0805_2012Metric.wrl')
+('C62', '${KISYS3DMOD}/Capacitor_SMD.3dshapes/C_0805_2012Metric.wrl')
+('C72', '${KISYS3DMOD}/Capacitor_SMD.3dshapes/C_0805_2012Metric.wrl')
+('C81', '${KISYS3DMOD}/Capacitor_SMD.3dshapes/C_0805_2012Metric.wrl')
+('C82', '${KISYS3DMOD}/Capacitor_SMD.3dshapes/C_0805_2012Metric.wrl')
+('D31', '${KISYS3DMOD}/Diode_SMD.3dshapes/D_SOD-123.wrl')
+('D51', '${KISYS3DMOD}/Diode_SMD.3dshapes/D_SOD-123.wrl')
+('D61', '${KISYS3DMOD}/Diode_SMD.3dshapes/D_SOD-123.wrl')
+('D71', '${KISYS3DMOD}/Diode_SMD.3dshapes/D_SOD-123.wrl')
+('D81', '${KISYS3DMOD}/Diode_SMD.3dshapes/D_SOD-123.wrl')
+('C71', '${KISYS3DMOD}/Capacitor_SMD.3dshapes/C_0805_2012Metric.wrl')
+('R51', '${KISYS3DMOD}/Resistor_SMD.3dshapes/R_0805_2012Metric.wrl')
+('R71', '${KISYS3DMOD}/Resistor_SMD.3dshapes/R_0805_2012Metric.wrl')
+('R81', '${KISYS3DMOD}/Resistor_SMD.3dshapes/R_0805_2012Metric.wrl')
+('R61', '${KISYS3DMOD}/Resistor_SMD.3dshapes/R_0805_2012Metric.wrl')
+('L51', '${KISYS3DMOD}/Inductor_SMD.3dshapes/L_Bourns_SRN6045TA.wrl')
+('L61', '${KISYS3DMOD}/Inductor_SMD.3dshapes/L_Bourns_SRN6045TA.wrl')
+('L71', '${KISYS3DMOD}/Inductor_SMD.3dshapes/L_Bourns_SRN6045TA.wrl')
+('L81', '${KISYS3DMOD}/Inductor_SMD.3dshapes/L_Bourns_SRN6045TA.wrl')
+-------
+NUM of 3D missing models:26
+checked extensions ['.stp', '.step', '.stpZ']

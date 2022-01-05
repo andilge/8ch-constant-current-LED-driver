@@ -49,7 +49,7 @@
 
 # set up variables
 substitutions:
-  my_name: 'Downlight'
+  my_name: '8 Downlights'
   my_reboot_timeout: '30min'
   my_static_ip: '10.11.12.13' # use one that fits in your network
   my_pwm_frequency: '19531Hz'
@@ -58,7 +58,7 @@ substitutions:
 
 # define core configs
 esphome:
-  name: downlight-group-1
+  name: ${my_name}
   comment: ${my_name}
   platform: ESP32
   board: mhetesp32minikit
@@ -85,6 +85,11 @@ wifi:
     # channel: 8
 
 captive_portal:
+
+# Sets up Bluetooth LE to allow the user to
+# provision wifi credentials to the device.
+esp32_improv:
+  authorizer: none
 
 # <<: !include common/api.yaml
 api:
