@@ -1,5 +1,6 @@
 # excluding folders
 /.git
+/CC dimmer low voltage-backups
 /revisions/2021-10-29
 /revisions/2021-10-30
 /revisions/2021-11-02
@@ -39,6 +40,7 @@ sym-lib-table
 *.ods
 *.ods#
 *.csv#
+*.txt
 
 # excluding specific files
 /revisions/latest-schematic-diagram-bw.pdf
