@@ -27,6 +27,7 @@
 *.kicad_sch
 *.kicad_sch-bak
 *.sch-bak
+*.kicad_sym
 *.xml
 *.lib
 *rescue.bck
