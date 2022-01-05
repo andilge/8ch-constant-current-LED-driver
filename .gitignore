@@ -17,11 +17,15 @@
 # Format documentation: https://dev-docs.kicad.org/en/file-formats/
 *.kicad_pcb
 *.kicad_pcb-bak
+*.kicad_prl
+*.kicad_prl-bak
 *.net
 *.pro
 *.kicad_pro
+*.kicad_pro-bak
 *.sch
 *.kicad_sch
+*.kicad_sch-bak
 *.sch-bak
 *.xml
 *.lib
@@ -39,6 +43,7 @@ sym-lib-table
 *.odt#
 *.ods
 *.ods#
+*.csv
 *.csv#
 *.txt
 
