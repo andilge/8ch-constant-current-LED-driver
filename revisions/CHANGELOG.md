@@ -6,9 +6,21 @@
 - Wiki and step by step guide. I know I'm lazy at documentation, just more fascinated in getting things up, running and QCed :-)
 - Tests with all the external sensor/actor stuff with pir motion sensor and rotary encoder on 10 meter distant from board. Since the connectors have changed with v0.99 and debouncing/hum filter has dropped in with v0.991 I'll have to wait until these parts and the new board version are here first
 
+## [0.993] - 2022-01-07
+### Added
+### Changed
+- Moving the light power components to the board's edge => larger power zone in the middle, lowering resistance
+- Redoing all the zones, reconnecting some tracks
+- Revamping the buzzard labels near the screw terminals
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+
 ## [0.992] - 2022-01-05
 ### Added
-- Introducing small Buzzard labels near the screw terminals
+- Introducing small buzzard labels near the screw terminals
 - Introducing thermal reliefs on though hole and smd solder pads when in a zone
 ### Changed
 - minor changes of placement of some vias, moving away from silk screens
