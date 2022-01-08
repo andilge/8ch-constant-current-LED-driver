@@ -8,6 +8,7 @@
 
 ## [0.993] - 2022-01-07
 ### Added
+- Introducing fillet tracks (rounded corner in tracks)
 ### Changed
 - Moving the light power components to the board's edge => larger power zone in the middle, lowering resistance
 - Redoing all the zones, reconnecting some tracks
