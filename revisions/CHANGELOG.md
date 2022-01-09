@@ -8,6 +8,19 @@
 
 ## [0.993] - 2022-01-07
 ### Added
+- Adding push button on the board (parallel to the one in the rotary encoder)
+### Changed
+- Fillet tracks for all tracks
+- Minor routing improvments all over the board
+### Deprecated
+### Removed
+### Fixed
+- Eliminating some courtyard overlap errors by slightly changing component placements
+- Adding decoupling resistors in PWM lines
+### Security
+
+## [0.993] - 2022-01-07
+### Added
 - Introducing fillet tracks (rounded corner in tracks)
 ### Changed
 - Moving the light power components to the board's edge => larger power zone in the middle, lowering resistance
