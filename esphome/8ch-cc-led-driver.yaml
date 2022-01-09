@@ -49,31 +49,31 @@
 
 # set up variables
 substitutions:
-  my_name: 'Eight Downlights'
-  my_project_name: "andilge.eight-downlights"
-  my_device: 'eight_downlights'
-  my_reboot_timeout: '30min'
+  name: 'Eight Downlights'
+  project_name: "andilge.eight-downlights"
+  device: 'eight_downlights'
+  reboot_timeout: '30min'
   project_version: '0.993'
-  my_static_ip: '10.11.12.13' # use one that fits in your network
-  my_pwm_frequency: '19531Hz'
-  my_default_transition: '2.5s'
-  my_gamma_correct: '2.4'
-  my_latitude: '47.3694001'
-  my_longitude: '8.5418238'
+  static_ip: '10.11.12.13' # use one that fits in your network
+  pwm_frequency: '19531Hz'
+  default_transition: '2.5s'
+  gamma_correct: '2.4'
+  latitude: '47.3694001'
+  longitude: '8.5418238'
 
 # define core configs
 esphome:
-  name: ${my_device}
+  name: ${device}
   name_add_mac_suffix: true
-  comment: ${my_name}
+  comment: ${name}
   platform: ESP32
   board: mhetesp32minikit
   project:
-    name: ${my_project_name}
+    name: ${project_name}
     version: "${project_version}"
 
 api:
-  reboot_timeout: ${my_reboot_timeout}
+  reboot_timeout: ${reboot_timeout}
 
 ota:
   safe_mode: true
@@ -213,7 +213,7 @@ script:
 binary_sensor:
   # define the momentary switch and it's action
   - platform: gpio
-    name: '${my_name} light switch'
+    name: '${name} light switch'
     pin:
       number: GPIO05
       mode: 
@@ -242,7 +242,7 @@ binary_sensor:
 
   - platform: gpio
     device_class: motion
-    name: '${my_name} motion'
+    name: '${name} motion'
     id: motion
     pin:
       number: GPIO32
@@ -260,18 +260,18 @@ binary_sensor:
           script.execute: motion_light_sequence
 
   - platform: status
-    name: '${my_name} connection'
+    name: '${name} connection'
 
 button:
   - platform: restart
     device_class: restart
-    name: '${my_name} reboot'
+    name: '${name} reboot'
     id: restart_button
 
 sensor:
   - platform: dallas
     index: 0
-    name: '${my_name} onboard temp.'
+    name: '${name} onboard temp.'
 
   # rotation only affects brighness when light is on
   # stay within visible brighness range, fade down to lowest visible light at max (~10 %)
@@ -441,7 +441,7 @@ sensor:
                 transition_length: 300ms
 
   - platform: uptime
-    name: '${my_name} uptime hours'
+    name: '${name} uptime hours'
     icon : mdi:clock-start
     update_interval: 6min
     accuracy_decimals: 1
@@ -462,7 +462,7 @@ sensor:
   # - !include common/sensors/wifi_signal_percents.yaml
   # # WiFi rssi in percents
   - platform: template
-    name: '${my_name} WiFi signal'
+    name: '${name} WiFi signal'
     id: wifi_rssi
     update_interval: 5min
     unit_of_measurement: '%'
@@ -484,7 +484,7 @@ sensor:
 output:
   - platform: ledc
     pin: GPIO16
-    frequency: ${my_pwm_frequency}
+    frequency: ${pwm_frequency}
     id: pwm_out_01
     # lowering power to protect newly connected led lights.
     # measure amps and set max_power value to meet the light's characteristics !
@@ -492,107 +492,107 @@ output:
 
   - platform: ledc
     pin: GPIO17
-    frequency: ${my_pwm_frequency}
+    frequency: ${pwm_frequency}
     id: pwm_out_02
     max_power: '75%' # lowering power to protect newly connected led lights
 
   - platform: ledc
     pin: GPIO18
-    frequency: ${my_pwm_frequency}
+    frequency: ${pwm_frequency}
     id: pwm_out_03
     max_power: '75%' # lowering power to protect newly connected led lights
 
   - platform: ledc
     pin: GPIO19
-    frequency: ${my_pwm_frequency}
+    frequency: ${pwm_frequency}
     id: pwm_out_04
     max_power: '100%' # downlight white, Iled max 290mA, Vled 15.4V
 
   - platform: ledc
     pin: GPIO21
-    frequency: ${my_pwm_frequency}
+    frequency: ${pwm_frequency}
     id: pwm_out_05
     max_power: '87%' # wall light gold/black, Iled max 250mA, Vled 18V
 
   - platform: ledc
     pin: GPIO22
-    frequency: ${my_pwm_frequency}
+    frequency: ${pwm_frequency}
     id: pwm_out_06
     max_power: '75%' # lowering power to protect newly connected led lights
 
   - platform: ledc
     pin: GPIO23
-    frequency: ${my_pwm_frequency}
+    frequency: ${pwm_frequency}
     id: pwm_out_07
     max_power: '75%' # lowering power to protect newly connected led lights
 
   - platform: ledc
     pin: GPIO25
-    frequency: ${my_pwm_frequency}
+    frequency: ${pwm_frequency}
     id: pwm_out_08
     max_power: '75%'
 
 light:
   - platform: monochromatic
     id: downlight_01
-    name: '${my_name} 1'
-    default_transition_length: ${my_default_transition}
+    name: '${name} 1'
+    default_transition_length: ${default_transition}
     output: pwm_out_01
-    gamma_correct: ${my_gamma_correct}
+    gamma_correct: ${gamma_correct}
 
   - platform: monochromatic
     id: downlight_02
-    name: '${my_name} 2'
-    default_transition_length: ${my_default_transition}
+    name: '${name} 2'
+    default_transition_length: ${default_transition}
     output: pwm_out_02
-    gamma_correct: ${my_gamma_correct}
+    gamma_correct: ${gamma_correct}
 
   - platform: monochromatic
     id: downlight_03
-    name: '${my_name} 3'
-    default_transition_length: ${my_default_transition}
+    name: '${name} 3'
+    default_transition_length: ${default_transition}
     output: pwm_out_03
-    gamma_correct: ${my_gamma_correct}
+    gamma_correct: ${gamma_correct}
 
   - platform: monochromatic
     id: downlight_04
-    name: '${my_name} 4'
-    default_transition_length: ${my_default_transition}
+    name: '${name} 4'
+    default_transition_length: ${default_transition}
     output: pwm_out_04
-    gamma_correct: ${my_gamma_correct}
+    gamma_correct: ${gamma_correct}
 
   - platform: monochromatic
     id: downlight_05
-    name: '${my_name} 5'
-    default_transition_length: ${my_default_transition}
+    name: '${name} 5'
+    default_transition_length: ${default_transition}
     output: pwm_out_05
-    gamma_correct: ${my_gamma_correct}
+    gamma_correct: ${gamma_correct}
 
   - platform: monochromatic
     id: downlight_06
-    name: '${my_name} 6'
-    default_transition_length: ${my_default_transition}
+    name: '${name} 6'
+    default_transition_length: ${default_transition}
     output: pwm_out_06
-    gamma_correct: ${my_gamma_correct}
+    gamma_correct: ${gamma_correct}
 
   - platform: monochromatic
     id: downlight_07
-    name: '${my_name} 7'
-    default_transition_length: ${my_default_transition}
+    name: '${name} 7'
+    default_transition_length: ${default_transition}
     output: pwm_out_07
-    gamma_correct: ${my_gamma_correct}
+    gamma_correct: ${gamma_correct}
 
   - platform: monochromatic
     id: downlight_08
-    name: '${my_name} 8'
-    default_transition_length: ${my_default_transition}
+    name: '${name} 8'
+    default_transition_length: ${default_transition}
     output: pwm_out_08
-    gamma_correct: ${my_gamma_correct}
+    gamma_correct: ${gamma_correct}
 
 switch:
   # virtual switch for night light
   - platform: template
-    name: '${my_name} night light'
+    name: '${name} night light'
     id: night_light
     icon: 'mdi:weather-night'
     optimistic: true
@@ -613,7 +613,7 @@ switch:
 
   # virtual switch for auto night light
   - platform: template
-    name: '${my_name} auto night light'
+    name: '${name} auto night light'
     id: auto_night_light
     icon: 'mdi:brightness-auto'
     optimistic: true
@@ -636,18 +636,18 @@ text_sensor:
   # - !include common/text_sensors/wifi_info.yaml
   - platform: wifi_info
     ip_address:
-      name: '${my_name} IP'
+      name: '${name} IP'
       icon: mdi:ip-network-outline
     ssid:
-      name: '${my_name} SSID'
+      name: '${name} SSID'
       icon: mdi:access-point-network
     bssid:
-      name: '${my_name} BSSID'
+      name: '${name} BSSID'
       icon: mdi:plus-network-outline
 
   # - !include common/text_sensors/mac.yaml
   - platform: template
-    name: '${my_name} MAC'
+    name: '${name} MAC'
     icon: mdi:minus-network-outline
     update_interval: 6min
     lambda: |-
@@ -655,11 +655,11 @@ text_sensor:
 
   # - !include common/text_sensors/version.yaml
   - platform: version
-    name: '${my_name} ESPHome version'
+    name: '${name} ESPHome version'
 
 sun:
-  latitude: ${my_latitude}
-  longitude: ${my_longitude}
+  latitude: ${latitude}
+  longitude: ${longitude}
   
   on_sunset:
       if:
