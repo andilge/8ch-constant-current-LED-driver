@@ -3,7 +3,7 @@
 # 8 channel led driver constant current #
 #########################################
 
-# code prepared for board v0.993, 2022-01-07
+# code prepared for board v0.995, 2022-01-15
 
 # esp board model:  MH-ET LIVE ESP32 MiniKit
 
@@ -54,12 +54,11 @@ substitutions:
   device: 'eight_downlights'
   reboot_timeout: '30min'
   project_version: '0.993'
-  static_ip: '10.11.12.13' # use one that fits in your network
   pwm_frequency: '19531Hz'
   default_transition: '2.5s'
   gamma_correct: '2.4'
-  latitude: '47.3694001'
-  longitude: '8.5418238'
+  latitude: '47.348942' # change to your location, find it with https://www.latlong.net/
+  longitude: '8.545489' # change to your location, find it with https://www.latlong.net/
 
 # define core configs
 esphome:
@@ -84,7 +83,6 @@ logger:
 web_server:
   port: 80
 
-
 wifi:
   ap: {} # This spawns an AP with the device name and mac address with no password.
 
@@ -101,7 +99,6 @@ dashboard_import:
 time:
   - platform: homeassistant
     id: homeassistant_time
-
 
 dallas:
   - pin: GPIO04
@@ -299,7 +296,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_01
                 relative_brightness: 2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -308,7 +305,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_02
                 relative_brightness: 2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -317,7 +314,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_03
                 relative_brightness: 2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -326,7 +323,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_04
                 relative_brightness: 2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -335,7 +332,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_05
                 relative_brightness: 2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -344,7 +341,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_06
                 relative_brightness: 2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -353,7 +350,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_07
                 relative_brightness: 2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -362,7 +359,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_08
                 relative_brightness: 2%
-                transition_length: 300ms
+                transition_length: 333ms
 
     # lowering brighness
     on_anticlockwise:
@@ -375,7 +372,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_01
                 relative_brightness: -2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -384,7 +381,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_02
                 relative_brightness: -2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -393,7 +390,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_03
                 relative_brightness: -2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -402,7 +399,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_04
                 relative_brightness: -2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -411,7 +408,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_05
                 relative_brightness: -2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -420,7 +417,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_06
                 relative_brightness: -2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -429,7 +426,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_07
                 relative_brightness: -2%
-                transition_length: 300ms
+                transition_length: 333ms
 
       - if:
           condition:
@@ -438,7 +435,7 @@ sensor:
             - light.dim_relative:
                 id: downlight_08
                 relative_brightness: -2%
-                transition_length: 300ms
+                transition_length: 333ms
 
   - platform: uptime
     name: '${name} uptime hours'
