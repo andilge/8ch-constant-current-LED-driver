@@ -2,11 +2,27 @@
 
 ## [Unreleased]
 ### To be added
+- Bigger 5V buck converter to serve additional power consumption of the addressbale LEDs
 - Deep diving once again into tests with infrared thermal cam on the very last revision. Don't get me wrong, this has been done with positive results in earlier revisions and it's only been improved. Documentation and publication is lacking though
 - Wiki and step by step guide. I know I'm lazy at documentation, just more fascinated in getting things up, running and QCed :-)
 - Tests with all the external sensor/actor stuff with pir motion sensor and rotary encoder on 10 meter distant from board. Since the connectors have changed with v0.99 and debouncing/hum filter has dropped in with v0.991 I'll have to wait until these parts and the new board version are here first
 
-## [0.993] - 2022-01-07
+## [0.995] - 2022-01-15
+### Added
+- Introducing a digital bus for adressable LEDs on 6 pin JST XH connector to encoder
+- Simple level shifter 3.3V to 5V for data line
+- Selectable data line attenuation 33Ω (short cable) or 253Ω (long cable) with DIP switch
+- Addtitional resettable fuse for LED power line
+### Changed
+- new buck converter delivering more power for LEDs
+- new placment for power supply, debouncing filter and connector components
+- rerouting all tracks on these components
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [0.994] - 2022-01-07
 ### Added
 - Adding push button on the board (parallel to the one in the rotary encoder)
 ### Changed
