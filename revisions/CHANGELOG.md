@@ -11,10 +11,10 @@
 ### Added
 - Introducing a digital bus for adressable LEDs on 6 pin JST XH connector to encoder
 - Simple level shifter 3.3V to 5V for data line
-- Selectable data line attenuation 33Ω (short cable) or 253Ω (long cable) with DIP switch
+- Selectable data line attenuation 33Ω (short cable) or 253Ω (long cable) with pin header jumper
 - Addtitional resettable fuse for LED power line
 ### Changed
-- new buck converter delivering more power for LEDs
+- new buck converter delivering more power for the adressable LEDs on the controller
 - new placment for power supply, debouncing filter and connector components
 - rerouting all tracks on these components
 ### Deprecated
