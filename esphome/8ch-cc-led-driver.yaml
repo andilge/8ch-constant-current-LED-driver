@@ -475,16 +475,15 @@ sensor:
       # delete not a number or state value
       - lambda: 'if (isnan(x)) return{}; else return(x);'
       # don''t report changes lower than +-2%
-      - delta: 2.0
+      - delta: 2
 
 output:
+    # measure amps and set max_power value to meet your light's characteristics !
   - platform: ledc
     pin: GPIO16
     frequency: ${pwm_frequency}
     id: pwm_out_01
-    # lowering power to protect newly connected led lights.
-    # measure amps and set max_power value to meet the light's characteristics !
-    max_power: '75%' 
+    max_power: '75%' # lowering power to protect newly connected led lights
 
   - platform: ledc
     pin: GPIO17
@@ -502,13 +501,13 @@ output:
     pin: GPIO19
     frequency: ${pwm_frequency}
     id: pwm_out_04
-    max_power: '100%' # downlight white, Iled max 290mA, Vled 15.4V
+    max_power: '75%' # lowering power to protect newly connected led lights
 
   - platform: ledc
     pin: GPIO21
     frequency: ${pwm_frequency}
     id: pwm_out_05
-    max_power: '87%' # wall light gold/black, Iled max 250mA, Vled 18V
+    max_power: '75%'  # lowering power to protect newly connected led lights
 
   - platform: ledc
     pin: GPIO22
@@ -526,7 +525,7 @@ output:
     pin: GPIO25
     frequency: ${pwm_frequency}
     id: pwm_out_08
-    max_power: '75%'
+    max_power: '75%' # lowering power to protect newly connected led lights
 
 light:
   - platform: monochromatic
@@ -595,7 +594,6 @@ switch:
     restore_state: true
     on_turn_on:
       - script.execute: motion_light_sequence
-
     on_turn_off:
       - script.stop: motion_light_sequence
       - light.turn_off: downlight_01
@@ -620,7 +618,6 @@ switch:
             - sun.is_below_horizon:
           then:
             switch.turn_on: night_light
-
     on_turn_off:
       - if:
           condition:
@@ -653,14 +650,12 @@ text_sensor:
 sun:
   latitude: ${latitude}
   longitude: ${longitude}
-  
   on_sunset:
       if:
         condition:
           switch.is_on: auto_night_light
         then:
           - switch.turn_on: night_light
-  
   on_sunrise:
       if:
         condition:
