@@ -456,7 +456,6 @@ sensor:
       # delete not a number or state value
       - lambda: 'if (isnan(x)) return{}; else return(x);'
 
-  # - !include common/sensors/wifi_signal_percents.yaml
   # # WiFi rssi in percents
   - platform: template
     name: '${name} WiFi signal'
@@ -630,7 +629,6 @@ switch:
             switch.turn_off: night_light
 
 text_sensor:
-  # - !include common/text_sensors/wifi_info.yaml
   - platform: wifi_info
     ip_address:
       name: '${name} IP'
@@ -642,7 +640,6 @@ text_sensor:
       name: '${name} BSSID'
       icon: mdi:plus-network-outline
 
-  # - !include common/text_sensors/mac.yaml
   - platform: template
     name: '${name} MAC'
     icon: mdi:minus-network-outline
@@ -650,7 +647,6 @@ text_sensor:
     lambda: |-
       return {WiFi.macAddress().c_str()};
 
-  # - !include common/text_sensors/version.yaml
   - platform: version
     name: '${name} ESPHome version'
 
