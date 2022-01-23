@@ -18,7 +18,7 @@ The board revisions are accessible in the folder "revisions". Check CHANGELOG.md
 An example esphome yaml file is located in the folder "esphome".
 
 ## Controller add-on
-Check out [Rotary encoder with a 10 WS2811 F5 LEDs segmented ring on a translucent white blinde plate](https://github.com/andilge/8ch-constant-current-LED-driver "Rotary encoder with a 10 WS2811 F5 LEDs segmented ring on a translucent white blinde plate") as controller add-on for dimming and toggling the lights.
+Check out [Rotary encoder with a 10 WS2811 F5 LEDs segmented ring on a translucent white blinde plate](https://github.com/andilge/EC11-encoder-with-WS2811-ring "Rotary encoder with a 10 WS2811 F5 LEDs segmented ring on a translucent white blinde plate") as controller add-on for dimming and toggling the lights.
 
 
 ## Where to go
