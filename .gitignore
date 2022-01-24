@@ -44,8 +44,6 @@ sym-lib-table
 *.odt#
 *.ods
 *.ods#
-*.csv
-*.csv#
 *.txt
 
 # excluding specific files
