@@ -7,9 +7,21 @@
 - Wiki and step by step guide. I know I'm lazy at documentation, just more fascinated in getting things up, running and QCed :-)
 - Tests with all the external sensor/actor stuff with pir motion sensor and rotary encoder on 10 meter distant from board. Since the connectors have changed with v0.99 and debouncing/hum filter has dropped in with v0.991 I'll have to wait until these parts and the new board version are here first
 
+## [0.996] - 2022-02-03
+### Added
+### Changed
+- better zone handling around the mounting holes
+- wider radius on many rounded corners for trackes, better track fillets
+- better placement on some debouncing filter components, shortening tracks
+- some minor cosmetics all around the board
+### Deprecated
+### Removed
+### Fixed
+### Security
+
 ## [0.995] - 2022-01-15
 ### Added
-- Introducing a digital bus for adressable LEDs on 6 pin JST XH connector to encoder
+- Introducing a data bus for adressable LEDs on 6 pin JST XH connector going to encoder
 - Simple level shifter 3.3V to 5V for data line
 - Selectable data line attenuation 33Ω (short cable) or 253Ω (long cable) with pin header jumper
 - Addtitional resettable fuse for LED power line

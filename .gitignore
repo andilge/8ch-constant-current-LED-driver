@@ -47,5 +47,8 @@ sym-lib-table
 *.txt
 
 # excluding specific files
-/revisions/latest-schematic-diagram-bw.pdf
+/revisions/adressable lights in esphome.txt
+/revisions/enclosure-labels.odt
 /revisions/enclosure-labels.pdf
+/revisions/latest-schematic-diagram-bw.pdf
+
