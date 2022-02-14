@@ -106,106 +106,6 @@ dallas:
 
 ##### start specific configs #####
 
-script:
-  # react on motion detection during night times
-  # turn on lights at mid to high brightness with 10sec transistion time
-  # stay like this for some time
-  # then fade down lights to low brightness with 30sec transistion time
-  - id: motion_light_sequence
-    mode: restart
-    then:
-      - lambda: |-
-          auto call = id(downlight_01).turn_on ();
-          call.set_transition_length (10000);
-          call.set_brightness (0.66);
-          call.perform ();
-
-      - lambda: |-
-          auto call = id(downlight_02).turn_on ();
-          call.set_transition_length (10000);
-          call.set_brightness (0.66);
-          call.perform ();
-
-      - lambda: |-
-          auto call = id(downlight_03).turn_on ();
-          call.set_transition_length (10000);
-          call.set_brightness (0.66);
-          call.perform ();
-
-      - lambda: |-
-          auto call = id(downlight_04).turn_on ();
-          call.set_transition_length (10000);
-          call.set_brightness (0.66);
-          call.perform ();
-
-      - lambda: |-
-          auto call = id(downlight_05).turn_on ();
-          call.set_transition_length (10000);
-          call.set_brightness (0.66);
-          call.perform ();
-
-      - lambda: |-
-          auto call = id(downlight_06).turn_on ();
-          call.set_transition_length (10000);
-          call.set_brightness (0.66);
-          call.perform ();
-
-      - lambda: |-
-          auto call = id(downlight_07).turn_on ();
-          call.set_transition_length (10000);
-          call.set_brightness (0.66);
-          call.perform ();
-
-      - lambda: |-
-          auto call = id(downlight_08).turn_on ();
-          call.set_transition_length (10000);
-          call.set_brightness (0.66);
-          call.perform ();
-
-      # stay at this level for some time
-      - delay: 150sec
-
-      # fade lights down slowly to low brightness
-      - lambda: |-
-          auto call = id(downlight_01).make_call ();
-          call.set_transition_length (30000);
-          call.set_brightness (0.1);
-          call.perform ();
-      - lambda: |-
-          auto call = id(downlight_02).make_call ();
-          call.set_transition_length (30000);
-          call.set_brightness (0.1);
-          call.perform ();
-      - lambda: |-
-          auto call = id(downlight_03).make_call ();
-          call.set_transition_length (30000);
-          call.set_brightness (0.1);
-          call.perform ();
-      - lambda: |-
-          auto call = id(downlight_04).make_call ();
-          call.set_transition_length (30000);
-          call.set_brightness (0.1);
-          call.perform ();
-      - lambda: |-
-          auto call = id(downlight_05).make_call ();
-          call.set_transition_length (30000);
-          call.set_brightness (0.1);
-          call.perform ();
-      - lambda: |-
-          auto call = id(downlight_06).make_call ();
-          call.set_transition_length (30000);
-          call.set_brightness (0.1);
-          call.perform ();
-      - lambda: |-
-          auto call = id(downlight_07).make_call ();
-          call.set_transition_length (30000);
-          call.set_brightness (0.1);
-          call.perform ();
-      - lambda: |-
-          auto call = id(downlight_08).make_call ();
-          call.set_transition_length (30000);
-          call.set_brightness (0.1);
-          call.perform ();
 
 binary_sensor:
   # define the momentary switch and it's action
@@ -933,16 +833,11 @@ light:
           speed: 10
           width: 10
 
-# display average brightness on LED ring
-      - addressable_lambda:
-          name: 'Brighness indicator'
-          update_interval: 16ms
-
 script:
   # this restarts every time the momentary switch is pressed
   # fade down all lights on LED ring around the rotary encoder
   # softly light up all LEDs green
-. # fade down all lights on LED again and return to the default effect
+  # fade down all lights on LED again and return to the default effect
 
     # fading out
   - id: switch_toggle_visualization
@@ -979,6 +874,102 @@ script:
             call.set_effect("Brighness indicator");
             call.perform();
       - delay : 50ms
+
+  - id: motion_light_sequence
+    mode: restart
+    then:
+      - lambda: |-
+          auto call = id(downlight_01).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
+
+      - lambda: |-
+          auto call = id(downlight_02).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
+
+      - lambda: |-
+          auto call = id(downlight_03).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
+
+      - lambda: |-
+          auto call = id(downlight_04).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
+
+      - lambda: |-
+          auto call = id(downlight_05).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
+
+      - lambda: |-
+          auto call = id(downlight_06).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
+
+      - lambda: |-
+          auto call = id(downlight_07).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
+
+      - lambda: |-
+          auto call = id(downlight_08).turn_on ();
+          call.set_transition_length (10000);
+          call.set_brightness (0.66);
+          call.perform ();
+
+      # stay at this level for some time
+      - delay: 150sec
+
+      # fade lights down slowly to low brightness
+      - lambda: |-
+          auto call = id(downlight_01).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_02).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_03).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_04).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_05).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_06).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_07).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
+      - lambda: |-
+          auto call = id(downlight_08).make_call ();
+          call.set_transition_length (30000);
+          call.set_brightness (0.1);
+          call.perform ();
 
 
 switch:
