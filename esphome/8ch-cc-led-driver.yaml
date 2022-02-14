@@ -863,17 +863,9 @@ script:
       - lambda: |-
           auto call = id(encoder_light_ring).make_call ();
           call.set_transition_length (100);
-          call.set_rgb(0.0, 0.01, 0.0);
+          call.set_rgb(0.0, 0.0, 0.0);
           call.perform ();
       - delay : 100ms
-
-      # transitate to default effect in 50ms
-      - lambda: |-
-          auto call = id(encoder_light_ring).make_call ();
-            call.set_transition_length (50);
-            call.set_effect("Brighness indicator");
-            call.perform();
-      - delay : 50ms
 
   - id: motion_light_sequence
     mode: restart
