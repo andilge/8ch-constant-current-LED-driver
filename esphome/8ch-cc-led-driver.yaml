@@ -12,7 +12,7 @@
 # # --------------------------------------------
 # | GPIO | Board | Usage                       |
 # |------|-------|-----------------------------|
-# | 02   | ~     | blue LED on ESP32 module    |
+# | 02   | ~     | blue LED on module          |
 # |------|-------|-----------------------------|
 # | 04   | U701  | dallas temp. sensor         |
 # |------|-------|-----------------------------|
@@ -49,798 +49,43 @@
 
 # set up variables
 substitutions:
-  name: 'Eight Downlights'
-  project_name: "andilge.eight-downlights"
-  device: 'eight_downlights'
-  reboot_timeout: '30min'
-  project_version: '0.996'
-  pwm_frequency: '19531Hz'
-  default_transition: '2.5s'
-  gamma_correct: '2.4'
-  latitude: '47.348942' # change to your location, find it with https://www.latlong.net/
-  longitude: '8.545489' # change to your location, find it with https://www.latlong.net/
+  my_name: 'Downlight'
+  my_project_name: "andilge.cc-leds"
+  my_project_version: '0.996'
+  my_device: 'cc-leds'
+  my_reboot_timeout: '30min'
+  my_pwm_frequency: '19531Hz'
+  my_default_transition: '2.5s'
+  my_gamma_correct: '2.4'
+  my_latitude: '!secret latitude'
+  my_longitude: '!secret longitude'
+  my_static_ip: 192.168.244.249
 
 # define core configs
 esphome:
-  name: ${device}
-  name_add_mac_suffix: true
-  comment: ${name}
+  name: ${my_device}
+  comment: ${my_name}
   platform: ESP32
   board: mhetesp32minikit
   project:
-    name: ${project_name}
-    version: "${project_version}"
+    name: "${my_project_name}"
+    version: "${my_project_version}"
 
-api:
-  reboot_timeout: ${reboot_timeout}
 
-ota:
-  safe_mode: true
+# import basic settings
+<<: !include common/wifi.yaml
+<<: !include common/api.yaml
+<<: !include common/ota.yaml
+<<: !include common/time.yaml
+<<: !include common/logger.yaml
+<<: !include common/web_server.yaml
 
-logger:
-  baud_rate: 0 # disable logging to serial
-
-web_server:
-  port: 80
-
-wifi:
-  ap: {} # This spawns an AP with the device name and mac address with no password.
-
-captive_portal:
-
-# Sets up Bluetooth LE to allow the user to
-# provision wifi credentials to the device.
-esp32_improv:
-  authorizer: none
-
-dashboard_import:
-  package_import_url: github://andilge/8ch-constant-current-LED-driver/esphome/8ch-cc-led-driver.yaml
-
-time:
-  - platform: homeassistant
-    id: homeassistant_time
-
-dallas:
-  - pin: GPIO04
-    update_interval: 72s # reads out 50/hour, 1200/day
 
 ##### start specific configs #####
 
-
-binary_sensor:
-  # define the momentary switch and it's action
-  - platform: gpio
-    name: '${name} light switch'
-    pin:
-      number: GPIO05
-      mode: 
-        input: true
-        pullup: false
-    filters:
-      - invert:
-    disabled_by_default: true
-    on_multi_click:
-      - timing:
-          - ON for at most 1s
-          - OFF for at least 0.2s
-        then:
-          - light.toggle: downlight_01
-          - light.toggle: downlight_02
-          - light.toggle: downlight_03
-          - light.toggle: downlight_04
-          - light.toggle: downlight_05
-          - light.toggle: downlight_06
-          - light.toggle: downlight_07
-          - light.toggle: downlight_08
-      - timing:
-          - ON for at least 4s
-        then:
-          - switch.toggle: auto_night_light
-
-  - platform: gpio
-    device_class: motion
-    name: '${name} motion'
-    id: motion
-    pin:
-      number: GPIO32
-      mode: 
-        input: true
-        pullup: false
-    filters:
-      - invert:
-    # do night light sequence on motion detection only if switch night light is on
-    on_press:
-      if:
-        condition:
-          switch.is_on: night_light
-        then:
-          script.execute: motion_light_sequence
-
-  - platform: status
-    name: '${name} connection'
-
-button:
-  - platform: restart
-    device_class: restart
-    name: '${name} reboot'
-    id: restart_button
-
-sensor:
-  - platform: dallas
-    index: 0
-    name: '${name} onboard temp.'
-
-  # rotation only affects brighness when light is on
-  # stay within visible brighness range, fade down to lowest visible light at max (~10 %)
-  - platform: rotary_encoder
-    id: dial_encoder
-    internal: true
-    pin_a: 
-      number: GPIO26
-      mode: 
-        input: true
-        pullup: false
-    pin_b: 
-      number: GPIO27
-      mode: 
-        input: true
-        pullup: false
-    resolution: 1
-
-    # increasing brightness
-    on_clockwise:
-      - if:
-          condition:
-            light.is_on: downlight_01
-          then:
-            - light.dim_relative:
-                id: downlight_01
-                relative_brightness: 1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            light.is_on: downlight_02
-          then:
-            - light.dim_relative:
-                id: downlight_02
-                relative_brightness: 1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            light.is_on: downlight_03
-          then:
-            - light.dim_relative:
-                id: downlight_03
-                relative_brightness: 1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            light.is_on: downlight_04
-          then:
-            - light.dim_relative:
-                id: downlight_04
-                relative_brightness: 1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            light.is_on: downlight_05
-          then:
-            - light.dim_relative:
-                id: downlight_05
-                relative_brightness: 1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            light.is_on: downlight_06
-          then:
-            - light.dim_relative:
-                id: downlight_06
-                relative_brightness: 1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            light.is_on: downlight_07
-          then:
-            - light.dim_relative:
-                id: downlight_07
-                relative_brightness: 1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            light.is_on: downlight_08
-          then:
-            - light.dim_relative:
-                id: downlight_08
-                relative_brightness: 1.8%
-                transition_length: 250ms
-
-    # lowering brighness
-    on_anticlockwise:
-      - if:
-          condition:
-            # remote values instantly reflects the new brightness, whereas current_values is the transitioning value
-            # bigger or equal to min brightness + 0.01 to avoid floating point issue
-            lambda: 'return id(downlight_01).remote_values.get_brightness() >= 0.11;'
-          then:
-            - light.dim_relative:
-                id: downlight_01
-                relative_brightness: -1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            lambda: 'return id(downlight_02).remote_values.get_brightness() >= 0.11;'
-          then:
-            - light.dim_relative:
-                id: downlight_02
-                relative_brightness: -1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            lambda: 'return id(downlight_03).remote_values.get_brightness() >= 0.11;'
-          then:
-            - light.dim_relative:
-                id: downlight_03
-                relative_brightness: -1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            lambda: 'return id(downlight_04).remote_values.get_brightness() >= 0.11;'
-          then:
-            - light.dim_relative:
-                id: downlight_04
-                relative_brightness: -1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            lambda: 'return id(downlight_05).remote_values.get_brightness() >= 0.11;'
-          then:
-            - light.dim_relative:
-                id: downlight_05
-                relative_brightness: -1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            lambda: 'return id(downlight_06).remote_values.get_brightness() >= 0.11;'
-          then:
-            - light.dim_relative:
-                id: downlight_06
-                relative_brightness: -1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            lambda: 'return id(downlight_07).remote_values.get_brightness() >= 0.11;'
-          then:
-            - light.dim_relative:
-                id: downlight_07
-                relative_brightness: -1.8%
-                transition_length: 250ms
-
-      - if:
-          condition:
-            lambda: 'return id(downlight_08).remote_values.get_brightness() >= 0.11;'
-          then:
-            - light.dim_relative:
-                id: downlight_08
-                relative_brightness: -1.8%
-                transition_length: 250ms
-
-  - platform: uptime
-    name: '${name} uptime hours'
-    icon : mdi:clock-start
-    update_interval: 6min
-    accuracy_decimals: 1
-    unit_of_measurement: h
-    filters:
-      # delete not a number or calculate and state value
-      - lambda: 'if (isnan(x)) return{}; else return(x/3600);'
-
-  # WiFi rssi in dBs
-  - platform: wifi_signal
-    id: wifi_rssi_dbs
-    internal: true
-    update_interval: 6min
-    filters:
-      # delete not a number or state value
-      - lambda: 'if (isnan(x)) return{}; else return(x);'
-
-  # WiFi rssi in percents
-  - platform: template
-    name: '${name} WiFi signal'
-    id: wifi_rssi
-    update_interval: 5min
-    unit_of_measurement: '%'
-    accuracy_decimals: 0
-    icon: mdi:wifi-strength-2
-    lambda: |-
-      if (id(wifi_rssi_dbs).state < -92.0)
-        return 1.0;
-      if (id(wifi_rssi_dbs).state > -21.0)
-        return 100.0;
-      else
-        return round(( -0.0154 * id(wifi_rssi_dbs).state * id(wifi_rssi_dbs).state ) - ( 0.3794 * id(wifi_rssi_dbs).state ) + 98.182 );
-    filters:
-      # don''t report changes lower than +-2%
-      - delta: 2
-
-output:
-    # measure amps and set max_power value to meet your light's characteristics !
-  - platform: ledc
-    pin: GPIO16
-    frequency: ${pwm_frequency}
-    id: pwm_out_01
-    max_power: '75%' # lowering power to protect newly connected led lights
-
-  - platform: ledc
-    pin: GPIO17
-    frequency: ${pwm_frequency}
-    id: pwm_out_02
-    max_power: '75%' # lowering power to protect newly connected led lights
-
-  - platform: ledc
-    pin: GPIO18
-    frequency: ${pwm_frequency}
-    id: pwm_out_03
-    max_power: '75%' # lowering power to protect newly connected led lights
-
-  - platform: ledc
-    pin: GPIO19
-    frequency: ${pwm_frequency}
-    id: pwm_out_04
-    max_power: '75%' # lowering power to protect newly connected led lights
-
-  - platform: ledc
-    pin: GPIO21
-    frequency: ${pwm_frequency}
-    id: pwm_out_05
-    max_power: '75%'  # lowering power to protect newly connected led lights
-
-  - platform: ledc
-    pin: GPIO22
-    frequency: ${pwm_frequency}
-    id: pwm_out_06
-    max_power: '75%' # lowering power to protect newly connected led lights
-
-  - platform: ledc
-    pin: GPIO23
-    frequency: ${pwm_frequency}
-    id: pwm_out_07
-    max_power: '75%' # lowering power to protect newly connected led lights
-
-  - platform: ledc
-    pin: GPIO25
-    frequency: ${pwm_frequency}
-    id: pwm_out_08
-    max_power: '75%' # lowering power to protect newly connected led lights
-
-light:
-  - platform: monochromatic
-    id: downlight_01
-    name: '${name} 1'
-    default_transition_length: ${default_transition}
-    output: pwm_out_01
-    gamma_correct: ${gamma_correct}
-    on_turn_off:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: 9
-          red: 0%
-          green: 0%
-          blue: 0%
-
-    on_turn_on:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: !lambda |-
-            return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-          red: 100%
-          green: 50%
-          blue: 0%
-
-    on_state:
-      - if:
-          condition:
-            light.is_on: downlight_01
-          then:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: !lambda |-
-                    return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-                red: 100%
-                green: 50%
-                blue: 0%
-
-          else:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: 9
-                red: 0%
-                green: 0%
-                blue: 0%
-
-  - platform: monochromatic
-    id: downlight_02
-    name: '${name} 2'
-    default_transition_length: ${default_transition}
-    output: pwm_out_02
-    gamma_correct: ${gamma_correct}
-
-    on_turn_off:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: 9
-          red: 0%
-          green: 0%
-          blue: 0%
-
-    on_turn_on:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: !lambda |-
-            return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-          red: 100%
-          green: 50%
-          blue: 0%
-
-    on_state:
-      - if:
-          condition:
-            light.is_on: downlight_02
-          then:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: !lambda |-
-                    return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-                red: 100%
-                green: 50%
-                blue: 0%
-
-          else:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: 9
-                red: 0%
-                green: 0%
-                blue: 0%
-
-  - platform: monochromatic
-    id: downlight_03
-    name: '${name} 3'
-    default_transition_length: ${default_transition}
-    output: pwm_out_03
-    gamma_correct: ${gamma_correct}
-
-    on_turn_off:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: 9
-          red: 0%
-          green: 0%
-          blue: 0%
-
-    on_turn_on:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: !lambda |-
-            return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-          red: 100%
-          green: 50%
-          blue: 0%
-
-    on_state:
-      - if:
-          condition:
-            light.is_on: downlight_03
-          then:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: !lambda |-
-                    return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-                red: 100%
-                green: 50%
-                blue: 0%
-
-          else:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: 9
-                red: 0%
-                green: 0%
-                blue: 0%
-
-  - platform: monochromatic
-    id: downlight_04
-    name: '${name} 4'
-    default_transition_length: ${default_transition}
-    output: pwm_out_04
-    gamma_correct: ${gamma_correct}
-
-    on_turn_off:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: 9
-          red: 0%
-          green: 0%
-          blue: 0%
-
-    on_turn_on:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: !lambda |-
-            return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-          red: 100%
-          green: 50%
-          blue: 0%
-
-    on_state:
-      - if:
-          condition:
-            light.is_on: downlight_04
-          then:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: !lambda |-
-                    return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-                red: 100%
-                green: 50%
-                blue: 0%
-
-          else:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: 9
-                red: 0%
-                green: 0%
-                blue: 0%
-
-
-  - platform: monochromatic
-    id: downlight_05
-    name: '${name} 5'
-    default_transition_length: ${default_transition}
-    output: pwm_out_05
-    gamma_correct: ${gamma_correct}
-
-    on_turn_off:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: 9
-          red: 0%
-          green: 0%
-          blue: 0%
-
-    on_turn_on:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: !lambda |-
-            return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-          red: 100%
-          green: 50%
-          blue: 0%
-
-    on_state:
-      - if:
-          condition:
-            light.is_on: downlight_05
-          then:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: !lambda |-
-                    return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-                red: 100%
-                green: 50%
-                blue: 0%
-
-          else:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: 9
-                red: 0%
-                green: 0%
-                blue: 0%
-
-  - platform: monochromatic
-    id: downlight_06
-    name: '${name} 6'
-    default_transition_length: ${default_transition}
-    output: pwm_out_06
-    gamma_correct: ${gamma_correct}
-    on_turn_off:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: 9
-          red: 0%
-          green: 0%
-          blue: 0%
-
-    on_turn_on:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: !lambda |-
-            return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-          red: 100%
-          green: 50%
-          blue: 0%
-
-    on_state:
-      - if:
-          condition:
-            light.is_on: downlight_06
-          then:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: !lambda |-
-                    return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-                red: 100%
-                green: 50%
-                blue: 0%
-
-          else:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: 9
-                red: 0%
-                green: 0%
-                blue: 0%
-
-
-  - platform: monochromatic
-    id: downlight_07
-    name: '${name} 7'
-    default_transition_length: ${default_transition}
-    output: pwm_out_07
-    gamma_correct: ${gamma_correct}
-    on_turn_off:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: 9
-          red: 0%
-          green: 0%
-          blue: 0%
-
-    on_turn_on:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: !lambda |-
-            return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-          red: 100%
-          green: 50%
-          blue: 0%
-
-    on_state:
-      - if:
-          condition:
-            light.is_on: downlight_07
-          then:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: !lambda |-
-                    return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-                red: 100%
-                green: 50%
-                blue: 0%
-
-          else:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: 9
-                red: 0%
-                green: 0%
-                blue: 0%
-
-
-  - platform: monochromatic
-    id: downlight_08
-    name: '${name} 8'
-    default_transition_length: ${default_transition}
-    output: pwm_out_08
-    gamma_correct: ${gamma_correct}
-    on_turn_off:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: 9
-          red: 0%
-          green: 0%
-          blue: 0%
-
-    on_turn_on:
-      - light.addressable_set:
-          id: encoder_light_ring
-          range_from: 0
-          range_to: !lambda |-
-            return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-          red: 100%
-          green: 50%
-          blue: 0%
-
-    on_state:
-      - if:
-          condition:
-            light.is_on: downlight_08
-          then:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: !lambda |-
-                    return( ( ( id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness()) + (id(downlight_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
-                red: 100%
-                green: 50%
-                blue: 0%
-
-          else:
-            - light.addressable_set:
-                id: encoder_light_ring
-                range_from: 0
-                range_to: 9
-                red: 0%
-                green: 0%
-                blue: 0%
-
-
-  - platform: fastled_clockless
-    name: '${name} encoder light ring'
-    id: encoder_light_ring
-    chipset: WS2811
-    pin: GPIO13
-    num_leds: 10
-    rgb_order: BRG
-    default_transition_length: ${default_transition}
-
-    effects:
-      - addressable_rainbow:
-          name: Rainbow
-          speed: 10
-          width: 10
-
 script:
-  # this restarts every time the momentary switch is pressed
-  # fade down all lights on LED ring around the rotary encoder
-  # softly light up all LEDs green
-  # fade down all lights on LED again and return to the default effect
-
-    # fading out
-  - id: switch_toggle_visualization
+  # this shows effect on the ring around the encoder and restarts every time the momentary switch is pressed
+  - id: switch_press_visualization
     mode: restart
     then:
       # fade out in 50ms
@@ -863,57 +108,67 @@ script:
       - lambda: |-
           auto call = id(encoder_light_ring).make_call ();
           call.set_transition_length (100);
-          call.set_rgb(0.0, 0.0, 0.0);
+          call.set_rgb(0.0, 0.01, 0.0);
           call.perform ();
       - delay : 100ms
 
+      # transitate to default effect in 50ms
+      - lambda: |-
+          auto call = id(encoder_light_ring).make_call ();
+            call.set_transition_length (50);
+            call.set_effect("Brighness indicator");
+            call.perform();
+      - delay : 50ms
+
+  # this shows effect on all 8 lights like a night light, fade in to bright, then after delay fall back to dimm light
   - id: motion_light_sequence
     mode: restart
+    # fade in all downlights to 66% in 10sec
     then:
       - lambda: |-
-          auto call = id(downlight_01).turn_on ();
+          auto call = id(cc_led_01).turn_on ();
           call.set_transition_length (10000);
           call.set_brightness (0.66);
           call.perform ();
 
       - lambda: |-
-          auto call = id(downlight_02).turn_on ();
+          auto call = id(cc_led_02).turn_on ();
           call.set_transition_length (10000);
           call.set_brightness (0.66);
           call.perform ();
 
       - lambda: |-
-          auto call = id(downlight_03).turn_on ();
+          auto call = id(cc_led_03).turn_on ();
           call.set_transition_length (10000);
           call.set_brightness (0.66);
           call.perform ();
 
       - lambda: |-
-          auto call = id(downlight_04).turn_on ();
+          auto call = id(cc_led_04).turn_on ();
           call.set_transition_length (10000);
           call.set_brightness (0.66);
           call.perform ();
 
       - lambda: |-
-          auto call = id(downlight_05).turn_on ();
+          auto call = id(cc_led_05).turn_on ();
           call.set_transition_length (10000);
           call.set_brightness (0.66);
           call.perform ();
 
       - lambda: |-
-          auto call = id(downlight_06).turn_on ();
+          auto call = id(cc_led_06).turn_on ();
           call.set_transition_length (10000);
           call.set_brightness (0.66);
           call.perform ();
 
       - lambda: |-
-          auto call = id(downlight_07).turn_on ();
+          auto call = id(cc_led_07).turn_on ();
           call.set_transition_length (10000);
           call.set_brightness (0.66);
           call.perform ();
 
       - lambda: |-
-          auto call = id(downlight_08).turn_on ();
+          auto call = id(cc_led_08).turn_on ();
           call.set_transition_length (10000);
           call.set_brightness (0.66);
           call.perform ();
@@ -921,53 +176,509 @@ script:
       # stay at this level for some time
       - delay: 150sec
 
-      # fade lights down slowly to low brightness
+      # fade out all downlights to 10% brightness in 3min
       - lambda: |-
-          auto call = id(downlight_01).make_call ();
+          auto call = id(cc_led_01).make_call ();
           call.set_transition_length (30000);
           call.set_brightness (0.1);
           call.perform ();
       - lambda: |-
-          auto call = id(downlight_02).make_call ();
+          auto call = id(cc_led_02).make_call ();
           call.set_transition_length (30000);
           call.set_brightness (0.1);
           call.perform ();
       - lambda: |-
-          auto call = id(downlight_03).make_call ();
+          auto call = id(cc_led_03).make_call ();
           call.set_transition_length (30000);
           call.set_brightness (0.1);
           call.perform ();
       - lambda: |-
-          auto call = id(downlight_04).make_call ();
+          auto call = id(cc_led_04).make_call ();
           call.set_transition_length (30000);
           call.set_brightness (0.1);
           call.perform ();
       - lambda: |-
-          auto call = id(downlight_05).make_call ();
+          auto call = id(cc_led_05).make_call ();
           call.set_transition_length (30000);
           call.set_brightness (0.1);
           call.perform ();
       - lambda: |-
-          auto call = id(downlight_06).make_call ();
+          auto call = id(cc_led_06).make_call ();
           call.set_transition_length (30000);
           call.set_brightness (0.1);
           call.perform ();
       - lambda: |-
-          auto call = id(downlight_07).make_call ();
+          auto call = id(cc_led_07).make_call ();
           call.set_transition_length (30000);
           call.set_brightness (0.1);
           call.perform ();
       - lambda: |-
-          auto call = id(downlight_08).make_call ();
+          auto call = id(cc_led_08).make_call ();
           call.set_transition_length (30000);
           call.set_brightness (0.1);
           call.perform ();
 
+output:
+    # measure amps and set max_power value to meet your light's characteristics !
+  - platform: ledc
+    pin: GPIO16
+    frequency: ${my_pwm_frequency}
+    id: pwm_out_01
+    max_power: '75%' # lowering power to protect newly connected led lights
+
+  - platform: ledc
+    pin: GPIO17
+    frequency: ${my_pwm_frequency}
+    id: pwm_out_02
+    max_power: '75%' # lowering power to protect newly connected led lights
+
+  - platform: ledc
+    pin: GPIO18
+    frequency: ${my_pwm_frequency}
+    id: pwm_out_03
+    max_power: '75%' # lowering power to protect newly connected led lights
+
+  - platform: ledc
+    pin: GPIO19
+    frequency: ${my_pwm_frequency}
+    id: pwm_out_04
+    max_power: '75%' # lowering power to protect newly connected led lights
+
+  - platform: ledc
+    pin: GPIO21
+    frequency: ${my_pwm_frequency}
+    id: pwm_out_05
+    max_power: '75%'  # lowering power to protect newly connected led lights
+
+  - platform: ledc
+    pin: GPIO22
+    frequency: ${my_pwm_frequency}
+    id: pwm_out_06
+    max_power: '75%' # lowering power to protect newly connected led lights
+
+  - platform: ledc
+    pin: GPIO23
+    frequency: ${my_pwm_frequency}
+    id: pwm_out_07
+    max_power: '75%' # lowering power to protect newly connected led lights
+
+  - platform: ledc
+    pin: GPIO25
+    frequency: ${my_pwm_frequency}
+    id: pwm_out_08
+    max_power: '75%' # lowering power to protect newly connected led lights
+
+light:
+  - platform: monochromatic
+    id: cc_led_01
+    name: '${my_name} 1'
+    default_transition_length: ${my_default_transition}
+    output: pwm_out_01
+    gamma_correct: ${my_gamma_correct}
+    on_turn_off:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: 9
+          red: 0%
+          green: 0%
+          blue: 0%
+
+    on_turn_on:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: !lambda |-
+            return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+          red: 100%
+          green: 50%
+          blue: 0%
+
+    on_state:
+      - if:
+          condition:
+            light.is_on: cc_led_01
+          then:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: !lambda |-
+                    return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+                red: 100%
+                green: 50%
+                blue: 0%
+
+          else:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: 9
+                red: 0%
+                green: 0%
+                blue: 0%
+
+  - platform: monochromatic
+    id: cc_led_02
+    name: '${my_name} 2'
+    default_transition_length: ${my_default_transition}
+    output: pwm_out_02
+    gamma_correct: ${my_gamma_correct}
+
+    on_turn_off:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: 9
+          red: 0%
+          green: 0%
+          blue: 0%
+
+    on_turn_on:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: !lambda |-
+            return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+          red: 100%
+          green: 50%
+          blue: 0%
+
+    on_state:
+      - if:
+          condition:
+            light.is_on: cc_led_02
+          then:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: !lambda |-
+                    return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+                red: 100%
+                green: 50%
+                blue: 0%
+
+          else:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: 9
+                red: 0%
+                green: 0%
+                blue: 0%
+
+  - platform: monochromatic
+    id: cc_led_03
+    name: '${my_name} 3'
+    default_transition_length: ${my_default_transition}
+    output: pwm_out_03
+    gamma_correct: ${my_gamma_correct}
+
+    on_turn_off:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: 9
+          red: 0%
+          green: 0%
+          blue: 0%
+
+    on_turn_on:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: !lambda |-
+            return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+          red: 100%
+          green: 50%
+          blue: 0%
+
+    on_state:
+      - if:
+          condition:
+            light.is_on: cc_led_03
+          then:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: !lambda |-
+                    return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+                red: 100%
+                green: 50%
+                blue: 0%
+
+          else:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: 9
+                red: 0%
+                green: 0%
+                blue: 0%
+
+  - platform: monochromatic
+    id: cc_led_04
+    name: '${my_name} 4'
+    default_transition_length: ${my_default_transition}
+    output: pwm_out_04
+    gamma_correct: ${my_gamma_correct}
+
+    on_turn_off:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: 9
+          red: 0%
+          green: 0%
+          blue: 0%
+
+    on_turn_on:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: !lambda |-
+            return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+          red: 100%
+          green: 50%
+          blue: 0%
+
+    on_state:
+      - if:
+          condition:
+            light.is_on: cc_led_04
+          then:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: !lambda |-
+                    return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+                red: 100%
+                green: 50%
+                blue: 0%
+
+          else:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: 9
+                red: 0%
+                green: 0%
+                blue: 0%
+
+
+  - platform: monochromatic
+    id: cc_led_05
+    name: '${my_name} 5'
+    default_transition_length: ${my_default_transition}
+    output: pwm_out_05
+    gamma_correct: ${my_gamma_correct}
+
+    on_turn_off:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: 9
+          red: 0%
+          green: 0%
+          blue: 0%
+
+    on_turn_on:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: !lambda |-
+            return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+          red: 100%
+          green: 50%
+          blue: 0%
+
+    on_state:
+      - if:
+          condition:
+            light.is_on: cc_led_05
+          then:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: !lambda |-
+                    return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+                red: 100%
+                green: 50%
+                blue: 0%
+
+          else:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: 9
+                red: 0%
+                green: 0%
+                blue: 0%
+
+  - platform: monochromatic
+    id: cc_led_06
+    name: '${my_name} 6'
+    default_transition_length: ${my_default_transition}
+    output: pwm_out_06
+    gamma_correct: ${my_gamma_correct}
+    on_turn_off:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: 9
+          red: 0%
+          green: 0%
+          blue: 0%
+
+    on_turn_on:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: !lambda |-
+            return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+          red: 100%
+          green: 50%
+          blue: 0%
+
+    on_state:
+      - if:
+          condition:
+            light.is_on: cc_led_06
+          then:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: !lambda |-
+                    return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+                red: 100%
+                green: 50%
+                blue: 0%
+
+          else:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: 9
+                red: 0%
+                green: 0%
+                blue: 0%
+
+
+  - platform: monochromatic
+    id: cc_led_07
+    name: '${my_name} 7'
+    default_transition_length: ${my_default_transition}
+    output: pwm_out_07
+    gamma_correct: ${my_gamma_correct}
+    on_turn_off:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: 9
+          red: 0%
+          green: 0%
+          blue: 0%
+
+    on_turn_on:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: !lambda |-
+            return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+          red: 100%
+          green: 50%
+          blue: 0%
+
+    on_state:
+      - if:
+          condition:
+            light.is_on: cc_led_07
+          then:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: !lambda |-
+                    return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+                red: 100%
+                green: 50%
+                blue: 0%
+
+          else:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: 9
+                red: 0%
+                green: 0%
+                blue: 0%
+
+
+  - platform: monochromatic
+    id: cc_led_08
+    name: '${my_name} 8'
+    default_transition_length: ${my_default_transition}
+    output: pwm_out_08
+    gamma_correct: ${my_gamma_correct}
+    on_turn_off:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: 9
+          red: 0%
+          green: 0%
+          blue: 0%
+
+    on_turn_on:
+      - light.addressable_set:
+          id: encoder_light_ring
+          range_from: 0
+          range_to: !lambda |-
+            return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+          red: 100%
+          green: 50%
+          blue: 0%
+
+    on_state:
+      - if:
+          condition:
+            light.is_on: cc_led_08
+          then:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: !lambda |-
+                    return( ( ( id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness()) + (id(cc_led_01).remote_values.get_brightness() ) ) / 8 * 10 - 1 );
+                red: 100%
+                green: 50%
+                blue: 0%
+
+          else:
+            - light.addressable_set:
+                id: encoder_light_ring
+                range_from: 0
+                range_to: 9
+                red: 0%
+                green: 0%
+                blue: 0%
+
+  - platform: fastled_clockless
+    name: '${my_name} encoder light ring'
+    id: encoder_light_ring
+    chipset: WS2811
+    pin: GPIO13
+    num_leds: 10
+    rgb_order: BRG
+    default_transition_length: ${my_default_transition}
+
+    effects:
+      - addressable_rainbow:
+          name: Rainbow
+          speed: 10
+          width: 10
 
 switch:
   # virtual switch for night light
   - platform: template
-    name: '${name} night light'
+    name: '${my_name} night light'
     id: night_light
     icon: 'mdi:weather-night'
     optimistic: true
@@ -976,18 +687,18 @@ switch:
       - script.execute: motion_light_sequence
     on_turn_off:
       - script.stop: motion_light_sequence
-      - light.turn_off: downlight_01
-      - light.turn_off: downlight_02
-      - light.turn_off: downlight_03
-      - light.turn_off: downlight_04
-      - light.turn_off: downlight_05
-      - light.turn_off: downlight_06
-      - light.turn_off: downlight_07
-      - light.turn_off: downlight_08
+      - light.turn_off: cc_led_01
+      - light.turn_off: cc_led_02
+      - light.turn_off: cc_led_03
+      - light.turn_off: cc_led_04
+      - light.turn_off: cc_led_05
+      - light.turn_off: cc_led_06
+      - light.turn_off: cc_led_07
+      - light.turn_off: cc_led_08
 
   # virtual switch for auto night light
   - platform: template
-    name: '${name} auto night light'
+    name: '${my_name} auto night light'
     id: auto_night_light
     icon: 'mdi:brightness-auto'
     optimistic: true
@@ -1005,31 +716,269 @@ switch:
           then:
             switch.turn_off: night_light
 
-text_sensor:
-  - platform: wifi_info
-    ip_address:
-      name: '${name} IP'
-      icon: mdi:ip-network-outline
-    ssid:
-      name: '${name} SSID'
-      icon: mdi:access-point-network
-    bssid:
-      name: '${name} BSSID'
-      icon: mdi:plus-network-outline
+  - !include common/switches/restart.yaml
+
+dallas:
+  - pin: GPIO04
+    update_interval: 72s # reads out 50/hour, 1200/day
+
+sensor:
+  - platform: template
+    id: prev_onboard_temperature
+    internal: true
 
   - platform: template
-    name: '${name} MAC'
-    icon: mdi:minus-network-outline
-    update_interval: 6min
-    lambda: |-
-      return {WiFi.macAddress().c_str()};
+    id: delta_onboard_temperature
 
-  - platform: version
-    name: '${name} ESPHome version'
+  - platform: dallas
+    index: 0
+    name: '${my_name} onboard temp.'
+    id: onboard_temperature
+    # when new value is stated, wait 2sec then publish in prev_onboard_temperature
+    on_value:
+      then:
+        - delay: 2s
+        - sensor.template.publish:
+            id: prev_onboard_temperature
+            state: !lambda return id(onboard_temperature).state;
+        # wait 2sec then publish now temp minus previous temp as delta temp
+        - delay: 2s
+        - sensor.template.publish:
+            id: delta_onboard_temperature
+            state: !lambda return (id(onboard_temperature).state) - (id(prev_onboard_temperature).state);
+        # might add a notification if delta_onboard_temperature is bigger than 3°C
+
+  # rotation only affects brighness when light is on. *No* turning on or off the light.
+  - platform: rotary_encoder
+    id: dial_encoder
+    internal: true
+    pin_a: 
+      number: GPIO26
+      mode: 
+        input: true
+        pullup: false
+    pin_b: 
+      number: GPIO27
+      mode: 
+        input: true
+        pullup: false
+    resolution: 1
+
+    # increasing brightness
+    on_clockwise:
+      - if:
+          condition:
+            light.is_on: cc_led_01
+          then:
+            - light.dim_relative:
+                id: cc_led_01
+                relative_brightness: 2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            light.is_on: cc_led_02
+          then:
+            - light.dim_relative:
+                id: cc_led_02
+                relative_brightness: 2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            light.is_on: cc_led_03
+          then:
+            - light.dim_relative:
+                id: cc_led_03
+                relative_brightness: 2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            light.is_on: cc_led_04
+          then:
+            - light.dim_relative:
+                id: cc_led_04
+                relative_brightness: 2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            light.is_on: cc_led_05
+          then:
+            - light.dim_relative:
+                id: cc_led_05
+                relative_brightness: 2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            light.is_on: cc_led_06
+          then:
+            - light.dim_relative:
+                id: cc_led_06
+                relative_brightness: 2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            light.is_on: cc_led_07
+          then:
+            - light.dim_relative:
+                id: cc_led_07
+                relative_brightness: 2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            light.is_on: cc_led_08
+          then:
+            - light.dim_relative:
+                id: cc_led_08
+                relative_brightness: 2%
+                transition_length: 250ms
+
+    # lowering brighness
+    # stay within visible brighness range, fade down to lowest visible light at max (~10 %).
+    on_anticlockwise:
+      - if:
+          condition:
+            # remote values instantly reflects the new brightness, whereas current_values is the transitioning value
+            # bigger or equal to min brightness + 0.01 to avoid floating point issue
+            lambda: 'return id(cc_led_01).remote_values.get_brightness() >= 0.11;'
+          then:
+            - light.dim_relative:
+                id: cc_led_01
+                relative_brightness: -2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            lambda: 'return id(cc_led_02).remote_values.get_brightness() >= 0.11;'
+          then:
+            - light.dim_relative:
+                id: cc_led_02
+                relative_brightness: -2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            lambda: 'return id(cc_led_03).remote_values.get_brightness() >= 0.11;'
+          then:
+            - light.dim_relative:
+                id: cc_led_03
+                relative_brightness: -2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            lambda: 'return id(cc_led_04).remote_values.get_brightness() >= 0.11;'
+          then:
+            - light.dim_relative:
+                id: cc_led_04
+                relative_brightness: -2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            lambda: 'return id(cc_led_05).remote_values.get_brightness() >= 0.11;'
+          then:
+            - light.dim_relative:
+                id: cc_led_05
+                relative_brightness: -2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            lambda: 'return id(cc_led_06).remote_values.get_brightness() >= 0.11;'
+          then:
+            - light.dim_relative:
+                id: cc_led_06
+                relative_brightness: -2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            lambda: 'return id(cc_led_07).remote_values.get_brightness() >= 0.11;'
+          then:
+            - light.dim_relative:
+                id: cc_led_07
+                relative_brightness: -2%
+                transition_length: 250ms
+
+      - if:
+          condition:
+            lambda: 'return id(cc_led_08).remote_values.get_brightness() >= 0.11;'
+          then:
+            - light.dim_relative:
+                id: cc_led_08
+                relative_brightness: -2%
+                transition_length: 250ms
+
+  - !include common/sensors/uptime.yaml
+  - !include common/sensors/wifi_signal.yaml
+  - !include common/sensors/wifi_signal_percents.yaml
+
+text_sensor:
+  - !include common/text_sensors/wifi_info.yaml
+  - !include common/text_sensors/mac.yaml
+  - !include common/text_sensors/version.yaml
+
+binary_sensor:
+  # define the momentary switch and it's action
+  - platform: gpio
+    name: '${my_name} switch'
+    pin:
+      number: GPIO05
+      mode: 
+        input: true
+        pullup: false
+    filters:
+      - invert:
+    disabled_by_default: true
+    on_multi_click:
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.2s
+        then:
+          - light.toggle: cc_led_01
+          - light.toggle: cc_led_02
+          - light.toggle: cc_led_03
+          - light.toggle: cc_led_04
+          - light.toggle: cc_led_05
+          - light.toggle: cc_led_06
+          - light.toggle: cc_led_07
+          - light.toggle: cc_led_08
+
+      - timing:
+          - ON for at least 4s
+        then:
+          - switch.toggle: auto_night_light
+
+  - platform: gpio
+    device_class: motion
+    name: '${my_name} motion'
+    id: motion
+    pin:
+      number: GPIO32
+      mode: 
+        input: true
+        pullup: false
+    filters:
+      - invert:
+    # do night light sequence on motion detection only if switch night light is on
+    on_press:
+      if:
+        condition:
+          switch.is_on: night_light
+        then:
+          script.execute: motion_light_sequence
+
+  - !include common/binary_sensors/status.yaml
 
 sun:
-  latitude: ${latitude}
-  longitude: ${longitude}
+  latitude: ${my_latitude}
+  longitude: ${my_longitude}
   on_sunset:
       if:
         condition:
@@ -1050,4 +999,3 @@ status_led:
     number: GPIO2
     mode:
       output: true
-
